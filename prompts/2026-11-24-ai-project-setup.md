@@ -154,3 +154,30 @@ docs/jira-ticket-guidelines.md + pointer in AGENTS.md, but add a rule specificat
 ```
 proceed with Commit as docs(KYP-4): …, push and open a PR.
 ```
+
+## Prompt 18
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`)
+
+```
+update the description of the epic KYP-1
+```
+
+## Prompt 19
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`)
+
+```
+Add a task in the Epic KYP-1 to add husky in the project to enforce the usage of conventional commit in each commit. Add the usage of conventional commit as an acceptance criteria.
+```
+
+## Prompt 20
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`)
+
+```
+pick up the ticket KYP-5. Install husky using package.json and setup husky. you need to validate the Acceptance Criteria before creating the PR, partial commits can be created
+```
