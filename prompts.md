@@ -46,15 +46,7 @@ Puedes añadir adicionalmente la conversación completa como link o archivo adju
 
 **Prompt 1:**
 
-```
-/init for a MVP project named Know Your Package with the main purpose is allow ISV partner to have all the current information of their Salesforce 2GP package. Create brief AGENTS.md file and use symlink to refrencet o CLAUDE.md. One rule for the project is that all the prompts need to be added to the prompts.md. Before doing any change create a jira branch called chore/KYP-1-AI-project-setup
-```
-
 **Prompt 2:**
-
-```
-add to the AGENTS.md the rule that commits will follow the conventional commits https://www.conventionalcommits.org/es/v1.0.0/
-```
 
 **Prompt 3:**
 
