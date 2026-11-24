@@ -12,7 +12,7 @@ Docs-only so far: only `readme.md` and `prompts.md` exist. No stack, build, lint
 
 ## Rules
 
-- **Log every prompt in `prompts.md`.** Add it under the matching section (and Prompt 1/2/3 slot) of that file. Keep the prompt text as written. The course asks for at most 3 per section, so pick the most relevant.
+- **Log every prompt in a per-session Markdown file in `prompts/`.** One file per session, named `YYYY-MM-DD-<slug>.md`, with each prompt appended in order as `## Prompt N` and kept verbatim. Each entry must state the tool used (e.g. Claude Code) and the model (e.g. Claude Sonnet 5.5) as `- Tool:` and `- Model:` lines above the prompt. The root `prompts.md` is the course deliverable template: curate the best prompts (max 3 per section) into it from the session files.
 - **Branches and Jira:** work happens on branches named `<type>/KYP-<n>-<slug>` (e.g. `chore/KYP-1-AI-project-setup`). Create the branch before making any change.
 - **Commits** follow [Conventional Commits 1.0.0](https://www.conventionalcommits.org/es/v1.0.0/): `<type>(<optional scope>): <description>`, with `!` or a `BREAKING CHANGE:` footer for breaking changes. Reuse the branch type (`feat`, `fix`, `chore`, `docs`, ...) and reference the Jira key, e.g. `chore(KYP-1): add AGENTS.md project setup`.
 - `AGENTS.md` is the source file. `CLAUDE.md` is a symlink to it, so edit `AGENTS.md`.
