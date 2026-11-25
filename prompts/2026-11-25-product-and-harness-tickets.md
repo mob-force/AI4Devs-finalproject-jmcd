@@ -1,6 +1,6 @@
-# Session: Product and harness tickets, ADR rule (KYP-7 to KYP-14)
+# Session: Product and harness tickets, ADR rule, product reviewer agent (KYP-7 to KYP-14)
 
-Branch: `docs/KYP-14-adr-rule` (Prompts 1 to 3 only changed Jira) · Date: 2026-11-25
+Branches: `docs/KYP-14-adr-rule` (Prompt 4), `chore/KYP-12-product-adversarial-reviewer` (Prompts 5 and 6). Prompts 1 to 3 only changed Jira · Date: 2026-11-25
 
 ## Prompt 1
 
@@ -44,4 +44,22 @@ The tickets and the epic needs to be in the to-do status
 
 ```
 Implement KYP-14, create a dedicated branch and a PR when you finish your work
+```
+
+## Prompt 5
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`)
+
+```
+Implement KYP-12, move the ticket to in-progress, create a dedicated branch and a PR when you finish your work
+```
+
+## Prompt 6
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`)
+
+```
+I didn't meant a different provider, what I meant is a different model
 ```
