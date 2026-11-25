@@ -145,11 +145,11 @@ node .claude/scripts/publish-review.mjs <<'KYP_REVIEW'
 KYP_REVIEW
 ```
 
-The script posts the summary and puts each finding on its line when that line is part of the pull request. Findings it cannot place stay in full in the summary.
+The script makes every finding visible to whoever reviews the pull request: on its line when that line is part of the diff, otherwise on its file when the file is part of the diff, and otherwise in full in the summary comment. So give the `file` and `line` of each finding as precisely as you can.
 
 - Output starting with `PUBLISHED:` means the comments are posted.
 - Output starting with `NOT PUBLISHED: invalid report` means your report is malformed. Fix the format, not the findings, and run it once more.
-- Any other `NOT PUBLISHED:` reason, or a refused command, is final: do not work around it.
+- Any other `NOT PUBLISHED:` or `PARTIALLY PUBLISHED:` result, or a refused command, is final: do not work around it or run it again.
 
 Never say the findings were posted unless the output starts with `PUBLISHED:`.
 

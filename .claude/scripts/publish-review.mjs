@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-// Publishes a Product Adversarial Reviewer report, read from stdin, as a review on the open pull
-// request of the checked-out branch: the summary as the review comment and one line comment for
-// each finding that points to a line of the pull request diff.
+// Publishes a Product Adversarial Reviewer report, read from stdin, on the open pull request of the
+// checked-out branch. Every finding has to be visible to whoever reviews the pull request, so it
+// goes, in order of preference, on its line of the diff, on its file in the diff, or in full in the
+// summary comment.
 // REVIEW_DRY_RUN=1 prints what would be posted without posting it.
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
@@ -103,37 +104,99 @@ export function findingMarkdown(finding) {
   ].join('\n\n');
 }
 
-export function buildReview({ summary, data }, diffLines, commitId) {
-  const comments = [];
-  const unplaced = [];
-  for (const finding of data.findings) {
-    if (Number.isInteger(finding.line) && diffLines.get(finding.file)?.has(finding.line)) {
-      comments.push({
-        path: finding.file,
-        line: finding.line,
-        side: 'RIGHT',
-        body: neutralizeMentions(findingMarkdown(finding)),
-      });
-    } else {
-      unplaced.push(finding);
-    }
+// Decides where each finding goes. `diff` maps each file of the pull request to its commentable
+// lines. Files in `stale` differ from the pull request, so their findings cannot be placed on it.
+export function placeFindings(findings, diff, stale = new Set()) {
+  const placed = { line: [], file: [], summary: [] };
+  for (const finding of findings) {
+    const lines = stale.has(finding.file) ? undefined : diff.get(finding.file);
+    if (!lines) placed.summary.push(finding);
+    else if (Number.isInteger(finding.line) && lines.has(finding.line)) placed.line.push(finding);
+    else placed.file.push(finding);
   }
+  return placed;
+}
 
+const commentBody = (finding) => limit(neutralizeMentions(findingMarkdown(finding)));
+
+function limit(text) {
+  if (text.length > MAX_BODY) throw new Error('the report is too long for a GitHub comment');
+  return text;
+}
+
+export function summaryBody({ summary, data }, inSummary, stale = new Set()) {
   const sections = [summary];
-  if (unplaced.length > 0) {
-    sections.push(`### Findings not on a changed line\n\n${unplaced.map(findingMarkdown).join('\n\n---\n\n')}`);
+  if (stale.size > 0) {
+    const names = [...stale].map((file) => `\`${file}\``).join(', ');
+    sections.push(
+      `> **Warning:** ${names} differed from this pull request when reviewed (uncommitted or unpushed changes). Their findings are listed here only, and line numbers may not match.`,
+    );
+  }
+  if (inSummary.length > 0) {
+    sections.push(`### Findings not attached to the diff\n\n${inSummary.map(findingMarkdown).join('\n\n---\n\n')}`);
   }
   if (data.previous_findings?.length > 0) {
     const rows = data.previous_findings.map((f) => `- **${f.id}** ${f.status}: ${f.reason}`);
     sections.push(`### Earlier findings\n\n${rows.join('\n')}`);
   }
   sections.push(FOOTER);
-  const body = neutralizeMentions(sections.join('\n\n'));
+  return limit(neutralizeMentions(sections.join('\n\n')));
+}
 
-  for (const text of [body, ...comments.map((comment) => comment.body)]) {
-    if (text.length > MAX_BODY) throw new Error('the report is too long for a GitHub comment');
+export function reviewPayload(report, placed, commitId, stale) {
+  return {
+    commit_id: commitId,
+    event: 'COMMENT',
+    body: summaryBody(report, placed.summary, stale),
+    comments: placed.line.map((finding) => ({
+      path: finding.file,
+      line: finding.line,
+      side: 'RIGHT',
+      body: commentBody(finding),
+    })),
+  };
+}
+
+export function filePayload(finding, commitId) {
+  return { commit_id: commitId, path: finding.file, subject_type: 'file', body: commentBody(finding) };
+}
+
+// Posts the review first, so that the summary exists, then the file comments. Findings that GitHub
+// refuses to attach to the diff are moved into the summary. `send(method, path, body)` calls the API
+// under the pull request.
+export function postReview({ report, placed, commitId, stale, send }) {
+  let { line, summary } = placed;
+  let review;
+  try {
+    review = send('POST', 'reviews', reviewPayload(report, placed, commitId, stale));
+  } catch (error) {
+    // 422 means GitHub rejected the content, so nothing was created and a retry cannot duplicate it.
+    if (line.length === 0 || !error.message.includes('HTTP 422')) throw error;
+    summary = [...summary, ...line];
+    line = [];
+    review = send('POST', 'reviews', reviewPayload(report, { line, summary }, commitId, stale));
   }
-  return { payload: { commit_id: commitId, event: 'COMMENT', body, comments }, unplaced: unplaced.length };
+
+  const refused = [];
+  let attached = 0;
+  for (const finding of placed.file) {
+    try {
+      send('POST', 'comments', filePayload(finding, commitId));
+      attached += 1;
+    } catch {
+      refused.push(finding);
+    }
+  }
+  if (refused.length > 0) {
+    summary = [...summary, ...refused];
+    try {
+      send('PUT', `reviews/${review.id}`, { body: summaryBody(report, summary, stale) });
+    } catch (error) {
+      const ids = refused.map((finding) => finding.id).join(', ');
+      return { url: review.html_url, missing: `${ids} could not be posted (${error.message})` };
+    }
+  }
+  return { url: review.html_url, counts: { line: line.length, file: attached, summary: summary.length } };
 }
 
 export function parseRepository(remoteUrl) {
@@ -141,6 +204,8 @@ export function parseRepository(remoteUrl) {
   if (!match) throw new Error('the origin remote is not a GitHub repository');
   return `${match[1]}/${match[2]}`;
 }
+
+class PartialError extends Error {}
 
 function run(command, args, input) {
   try {
@@ -170,22 +235,24 @@ function publish(text) {
   if (pulls.length > 1) throw new Error(`more than one open pull request for branch "${branch}"`);
   const [pull] = pulls;
 
-  // Line numbers are only right if the reviewed files are the ones in the pull request.
-  if (report.data.verdict !== 'not_reviewed') {
-    for (const document of report.data.documents) {
-      let same = false;
+  // Findings can only be attached to the diff if the reviewed file is the one in the pull request.
+  const reviewed = new Set(
+    report.data.verdict === 'not_reviewed'
+      ? []
+      : [...report.data.documents, ...report.data.findings.map((finding) => finding.file).filter(Boolean)],
+  );
+  const stale = new Set(
+    [...reviewed].filter((file) => {
       try {
-        same =
-          run('git', ['-C', root, 'rev-parse', '--verify', `${pull.headRefOid}:${document}`]) ===
-          run('git', ['-C', root, 'hash-object', '--', document]);
+        return (
+          run('git', ['-C', root, 'rev-parse', '--verify', `${pull.headRefOid}:${file}`]) !==
+          run('git', ['-C', root, 'hash-object', '--', file])
+        );
       } catch {
-        same = false;
+        return true;
       }
-      if (!same) {
-        throw new Error(`"${document}" differs from the pull request: commit and push it, then review again`);
-      }
-    }
-  }
+    }),
+  );
 
   const files = run('gh', ['api', '--paginate', `repos/${repository}/pulls/${pull.number}/files`,
     '--jq', '.[] | {filename, patch}']);
@@ -196,23 +263,37 @@ function publish(text) {
     }),
   );
 
-  const { payload, unplaced } = buildReview(report, diffLines, pull.headRefOid);
-  const counts = `${payload.comments.length} line comments, ${unplaced} findings in the summary only`;
+  const placed = placeFindings(report.data.findings, diffLines, stale);
+  const commitId = pull.headRefOid;
+  const describe = (counts) =>
+    `${counts.line} line comments, ${counts.file} file comments, ${counts.summary} findings in the summary only` +
+    (stale.size > 0 ? `; WARNING: differs from the pull request: ${[...stale].join(', ')}` : '');
+
   if (process.env.REVIEW_DRY_RUN) {
-    return `DRY RUN, nothing posted: ${pull.url} (${counts})\n${JSON.stringify(payload, null, 2)}`;
+    const requests = {
+      review: reviewPayload(report, placed, commitId, stale),
+      fileComments: placed.file.map((finding) => filePayload(finding, commitId)),
+    };
+    const counts = { line: placed.line.length, file: placed.file.length, summary: placed.summary.length };
+    return `DRY RUN, nothing posted: ${pull.url} (${describe(counts)})\n${JSON.stringify(requests, null, 2)}`;
   }
-  const review = JSON.parse(
-    run('gh', ['api', '--method', 'POST', `repos/${repository}/pulls/${pull.number}/reviews`, '--input', '-'],
-      JSON.stringify(payload)),
-  );
-  return `PUBLISHED: ${review.html_url} (${counts})`;
+
+  const send = (method, path, body) =>
+    JSON.parse(
+      run('gh', ['api', '--method', method, `repos/${repository}/pulls/${pull.number}/${path}`, '--input', '-'],
+        JSON.stringify(body)),
+    );
+  const result = postReview({ report, placed, commitId, stale, send });
+  if (result.missing) throw new PartialError(`${result.url} (${result.missing})`);
+  return `PUBLISHED: ${result.url} (${describe(result.counts)})`;
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
   try {
     console.log(publish(readFileSync(0, 'utf8')));
   } catch (error) {
-    console.log(`NOT PUBLISHED: ${error.message}`);
+    const status = error instanceof PartialError ? 'PARTIALLY PUBLISHED' : 'NOT PUBLISHED';
+    console.log(`${status}: ${error.message}`);
     process.exit(1);
   }
 }

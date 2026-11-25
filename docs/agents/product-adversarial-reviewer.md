@@ -24,7 +24,7 @@ To get the report without posting anything, add "Do not publish." to the request
 ## Before it can publish
 
 - The branch with the changes is checked out and has an open pull request (a draft is fine). The agent does not create one.
-- The reviewed files are committed and pushed. The script refuses to post if they differ from the pull request.
+- The reviewed files are committed and pushed. Findings about a file that differs from the pull request are posted in the summary only, with a warning.
 - `gh` is signed in. Comments are posted under that account and say they come from the agent.
 - The folder is trusted in Claude Code, so that the agent's hook runs.
 - You allow the publishing command when asked, or pass it in `--allowedTools` as above.
@@ -45,17 +45,22 @@ The report has two parts: a Markdown summary and a `json` block.
 
 ## What gets published
 
-One pull request review of type *comment* (it neither approves nor requests changes):
+Every finding is visible to whoever reviews the pull request. The script posts one review of type *comment* (it neither approves nor requests changes) with the summary, and places each finding, with its problem, proof and suggestion, in the first place that applies:
 
-- The summary as the review comment.
-- A line comment, with problem, proof and suggestion, for each finding on a line that is part of the pull request diff.
-- In the summary, in full, every finding that cannot be placed on a line.
+| The finding points to | Where it appears |
+|---|---|
+| A line that is part of the diff | Comment on that line, in *Files changed* |
+| Another line, or no line, of a file in the pull request | Comment on the file, in *Files changed* |
+| A file that is not in the pull request or differs from it, or a comment GitHub refuses | In full in the summary comment |
+
+The agent does not commit anything, so it cannot add a file to the diff to comment on it.
 
 The agent's answer ends with a `**Publication:**` line.
 
 | It says | Meaning |
 |---|---|
-| `PUBLISHED: <url>` | The comments are on the pull request. |
+| `PUBLISHED: <url>` | All findings are on the pull request. A `WARNING` names files that differed from it. |
+| `PARTIALLY PUBLISHED: <url>` | The summary was posted, but the listed findings are missing. Add them by hand. |
 | `NOT PUBLISHED: <reason>` | Nothing was posted. Fix the cause and run the review again. |
 
 For the caller, such as the Product Owner agent: do not post the findings again. Check that the verdict is not `not_reviewed`, that `model` is `claude-opus-5-5` and that the publication line starts with `PUBLISHED:`. Each run posts a new review, so a follow-up review adds to the earlier one.

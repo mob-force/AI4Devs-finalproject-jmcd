@@ -17,7 +17,8 @@ The findings have to be posted as comments on the open pull request of the branc
 3. The Product Owner agent must run on a different model, and whoever calls the reviewer must not override its model.
 4. It gets read and web tools (`Read`, `Grep`, `Glob`, `WebSearch`, `WebFetch`) and `Bash`, but no editing tools.
 5. A `PreToolUse` hook in the agent definition blocks every shell command except `.claude/scripts/publish-review.mjs`, which receives the report through a quoted heredoc.
-6. The script, not the model, decides what is posted: it rejects findings without proof, uses only the open pull request of the checked-out branch, refuses documents that differ from it, and only ever posts a review of type *comment*.
+6. The script, not the model, decides what is posted: it rejects findings without proof, uses only the open pull request of the checked-out branch, and only ever posts comments and a review of type *comment*.
+7. Every finding must be visible to whoever reviews the pull request: on its line in the diff, otherwise on its file in the diff, otherwise in full in the summary comment. Findings about a file that differs from the pull request go in the summary with a warning.
 
 ## Consequences
 
@@ -40,4 +41,7 @@ The findings have to be posted as comments on the open pull request of the branc
 - **The `opus` alias:** follows new releases by itself, so the review behaviour could change without anyone noticing.
 - **The caller publishes the report:** keeps the reviewer read-only, but every caller has to repeat the publishing steps and a review run on its own leaves no comments.
 - **Unrestricted `Bash` with instructions in the prompt:** simpler, but a reviewer that reads untrusted text could then run any command.
+- **Refusing to publish when a file differs from the pull request:** keeps line numbers exact, but leaves the findings invisible to reviewers.
+- **Putting a finding on the nearest changed line:** keeps it in the diff, but points reviewers at text it is not about.
+- **Committing a findings file so that every finding is in the diff:** the reviewer would have to change the branch it reviews.
 - **A GitHub MCP server:** the configured one fails to connect, and the line placement and checks would be left to the model.
