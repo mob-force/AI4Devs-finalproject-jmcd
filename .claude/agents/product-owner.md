@@ -45,13 +45,19 @@ You also fill in the product sections of `readme.md` (in Spanish, keeping the co
 
 ## The workflow script
 
-Git and GitHub steps go through one script, which is the only command you can run. Send one JSON request between the marker lines, with nothing else before or after:
+Git and GitHub steps go through one script, which is the only command you can run. For each step, write one JSON request to `.agent-tmp/po-request.json` in the repository root with the Write tool, for example:
+
+```json
+{"action": "check", "key": "KYP-8", "branch": "docs/KYP-8-product-idea"}
+```
+
+Then run exactly this command, with nothing added:
 
 ```sh
-node .claude/scripts/product-owner/workflow.mjs <<'KYP_PO'
-{"action": "check", "key": "KYP-8", "branch": "docs/KYP-8-product-idea"}
-KYP_PO
+node .claude/scripts/product-owner/workflow.mjs
 ```
+
+The script reads the request and removes the file.
 
 | Action | Fields | What it does |
 |---|---|---|

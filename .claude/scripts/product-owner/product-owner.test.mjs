@@ -7,7 +7,7 @@ import { after, test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 
 import { FOOTER } from '../product-review/publish-review.mjs';
-import { FIRST_LINE, LAST_LINE, TRANSITION_TOOL, blockReason } from './guard-product-owner.mjs';
+import { COMMAND, TRANSITION_TOOL, blockReason } from './guard-product-owner.mjs';
 import { isProductPath } from './paths.mjs';
 
 const ROOT = '/repo';
@@ -26,11 +26,12 @@ test('only product documentation can be written', () => {
 });
 
 test('the shell is limited to the workflow script', () => {
-  const command = `${FIRST_LINE}\n{"action":"check"}\n${LAST_LINE}`;
-  assert.equal(blocked('Bash', { command }), false);
-  for (const other of ['gh pr merge 1', 'git push --force', `${command}\ngh pr ready 1`]) {
+  assert.equal(blocked('Bash', { command: COMMAND }), false);
+  for (const other of ['gh pr merge 1', 'git push --force', `${COMMAND}\ngh pr ready 1`, `${COMMAND} merge`]) {
     assert.equal(blocked('Bash', { command: other }), true, other);
   }
+  assert.equal(blocked('Write', { file_path: `${ROOT}/.agent-tmp/po-request.json` }), false);
+  assert.equal(blocked('Write', { file_path: `${ROOT}/.agent-tmp/review-report.md` }), true);
 });
 
 test('only the reviewer can be started, with its own model', () => {
@@ -89,6 +90,7 @@ function setup({ pulls = [], reviews = [], onMain = true } = {}) {
     git('config', name, value);
   }
   write('readme.md');
+  write('.gitignore', '.agent-tmp/\n');
   if (onMain) write('.claude/scripts/product-owner/workflow.mjs');
   git('add', '-A');
   git('commit', '-m', 'chore: init');
@@ -108,15 +110,18 @@ else for (const review of ${JSON.stringify(reviews)}) console.log(JSON.stringify
   );
   chmodSync(join(bin, 'gh'), 0o755);
 
-  const act = (request) =>
+  const run = () =>
     spawnSync('node', [workflow], {
       cwd: repo,
-      input: JSON.stringify(request),
       encoding: 'utf8',
       env: { ...process.env, PATH: `${bin}:${process.env.PATH}` },
     }).stdout.trim();
+  const act = (request) => {
+    write('.agent-tmp/po-request.json', JSON.stringify(request));
+    return run();
+  };
   const ghCalls = () => readFileSync(join(base, 'gh.log'), 'utf8');
-  return { act, git, write, ghCalls };
+  return { act, run, git, write, ghCalls };
 }
 
 const task = { key: 'KYP-8', branch: 'docs/KYP-8-product-idea' };
@@ -168,6 +173,12 @@ test('wrong requests and an unmerged workflow are refused', () => {
   assert.match(act({ action: 'commit', message: 'docs(KYP-8): x', files: ['readme.md'] }), /STOPPED: "main" is not a task branch/);
   assert.equal(git('rev-parse', '--abbrev-ref', 'HEAD'), 'main');
   assert.match(setup({ onMain: false }).act({ action: 'start', ...task }), /STOPPED: this workflow is not on origin\/main/);
+});
+
+test('a request is used once', () => {
+  const { act, run } = setup();
+  assert.match(act({ action: 'check', ...task }), /^OK:/);
+  assert.match(run(), /STOPPED: there is no request/);
 });
 
 test('only product files with the task key can be committed', () => {

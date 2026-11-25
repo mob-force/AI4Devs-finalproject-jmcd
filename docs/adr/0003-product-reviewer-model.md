@@ -16,7 +16,7 @@ The findings have to be posted as comments on the open pull request of the branc
 2. It runs on **Claude Opus 5.5** (`claude-opus-5-5`), pinned by full model ID, at `high` effort.
 3. The Product Owner agent must run on a different model, and whoever calls the reviewer must not override its model.
 4. It gets read and web tools (`Read`, `Grep`, `Glob`, `WebSearch`, `WebFetch`) and `Bash`, but no editing tools.
-5. A `PreToolUse` hook in the agent definition blocks every shell command except `.claude/scripts/product-review/publish-review.mjs`, which receives the report through a quoted heredoc.
+5. A `PreToolUse` hook in the agent definition blocks every shell command except `.claude/scripts/product-review/publish-review.mjs`, which receives the report through a quoted heredoc. *(How the report reaches the script, and the file tool this needs, were changed by ADR 0005.)*
 6. The script, not the model, decides what is posted: it rejects findings without proof, uses only the open pull request of the checked-out branch, and only ever posts comments and a review of type *comment*.
 7. Every finding must be visible to whoever reviews the pull request: on its line in the diff, otherwise on its file in the diff, otherwise in full in the summary comment. Findings about a file that differs from the pull request go in the summary with a warning.
 

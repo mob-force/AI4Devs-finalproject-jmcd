@@ -1,13 +1,14 @@
 #!/usr/bin/env node
-// Publishes a Product Adversarial Reviewer report, read from stdin, on the open pull request of the
-// checked-out branch. Every finding has to be visible to whoever reviews the pull request, so it
+// Publishes the Product Adversarial Reviewer report in .agent-tmp/review-report.md on the open pull
+// request of the checked-out branch. Every finding has to be visible to whoever reviews the pull request, so it
 // goes, in order of preference, on its line of the diff, on its file in the diff, or in full in the
 // summary comment.
 // REVIEW_DRY_RUN=1 prints what would be posted without posting it.
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
 import { isAbsolute, relative } from 'node:path';
 import { pathToFileURL } from 'node:url';
+
+import { REVIEW_REPORT, takeRequest } from '../shared/agent-request.mjs';
 
 const VERDICTS = ['agree', 'changes_suggested', 'not_reviewed'];
 const SEVERITIES = ['blocker', 'major', 'minor'];
@@ -216,9 +217,9 @@ function run(command, args, input) {
   }
 }
 
-function publish(text) {
-  const report = parseReport(text);
+function publish() {
   const root = run('git', ['rev-parse', '--show-toplevel']);
+  const report = parseReport(takeRequest(root, REVIEW_REPORT));
   const fromRoot = (path) => (path && isAbsolute(path) ? relative(root, path) : path?.replace(/^\.\//, ''));
   report.data.documents = report.data.documents.map(fromRoot);
   for (const finding of report.data.findings) finding.file = fromRoot(finding.file);
@@ -290,7 +291,7 @@ function publish(text) {
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
   try {
-    console.log(publish(readFileSync(0, 'utf8')));
+    console.log(publish());
   } catch (error) {
     const status = error instanceof PartialError ? 'PARTIALLY PUBLISHED' : 'NOT PUBLISHED';
     console.log(`${status}: ${error.message}`);

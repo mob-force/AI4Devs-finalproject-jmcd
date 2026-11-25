@@ -12,7 +12,7 @@ The product documentation needs an owner that delivers every Jira task the same 
 
 1. The Product Owner is an agent in `.claude/agents/product-owner.md` that runs as the **main session** (`claude --agent product-owner`) and starts the reviewer as a subagent.
 2. It runs on **Claude Sonnet 5.5** (`claude-sonnet-5-5`), at `high` effort.
-3. The git and GitHub steps are a script, `.claude/scripts/product-owner/workflow.mjs`, which checks the preconditions of each step and refuses when they are not met.
+3. The git and GitHub steps are a script, `.claude/scripts/product-owner/workflow.mjs`, which checks the preconditions of each step and refuses when they are not met. It takes its requests from a file (ADR 0005).
 4. A `PreToolUse` hook limits the agent to that script, to product documentation files, to starting the reviewer and to moving a task to In Progress.
 5. Jira is used through the claude.ai Atlassian MCP connector, and GitHub through `gh`.
 6. The Product Owner does not post findings. It starts the reviewer, then verifies that the review is on the latest commit.

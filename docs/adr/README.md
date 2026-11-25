@@ -54,3 +54,4 @@ What was decided.
 | [0002](0002-record-decisions-as-adrs.md) | Record important decisions as ADRs | Adopted |
 | [0003](0003-product-reviewer-model.md) | Model and form of the Product Adversarial Reviewer | Proposed |
 | [0004](0004-product-owner-agent.md) | Model and form of the Product Owner agent | Proposed |
+| [0005](0005-agent-requests-through-files.md) | Agents pass requests to their scripts through a file | Proposed |

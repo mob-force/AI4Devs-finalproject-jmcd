@@ -57,8 +57,8 @@ It reports the reason and what was already done. It does not resume a task by it
 
 Enforced by the tool list and the hook, not only by its instructions:
 
-- The only shell command is the workflow script, which has no merge, ready or force-push action.
-- It writes only `docs/product/`, `docs/adr/`, `prompts/`, `prompts.md` and `readme.md`.
+- The only shell command is the workflow script, which has no merge, ready or force-push action. Its requests go through `.agent-tmp/po-request.json` (`docs/adr/0005-agent-requests-through-files.md`).
+- It writes only `docs/product/`, `docs/adr/`, `prompts/`, `prompts.md`, `readme.md` and its request file.
 - It starts only the reviewer, without overriding its model.
 - In Jira it reads tickets and moves one to **In Progress**. It cannot create or edit tickets.
 

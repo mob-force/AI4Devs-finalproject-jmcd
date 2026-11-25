@@ -3,16 +3,14 @@
 // changes to product documentation, subagents to the adversarial reviewer and Jira transitions to
 // "In Progress". Exit code 2 blocks the call.
 import { readFileSync } from 'node:fs';
-import { relative, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-import { isHeredocCommand } from '../product-review/guard-review-bash.mjs';
+import { PO_REQUEST, isExactCommand, targetPath } from '../shared/agent-request.mjs';
 import { PRODUCT_PATHS, isProductPath } from './paths.mjs';
 
 export const AGENT = 'product-owner';
 export const REVIEWER = 'product-adversarial-reviewer';
-export const FIRST_LINE = "node .claude/scripts/product-owner/workflow.mjs <<'KYP_PO'";
-export const LAST_LINE = 'KYP_PO';
+export const COMMAND = 'node .claude/scripts/product-owner/workflow.mjs';
 export const TRANSITION_TOOL = 'mcp__claude_ai_Atlassian_MCP__transitionJiraIssue';
 const TRANSITION_KEYS = ['cloudId', 'issueIdOrKey', 'transitionName'];
 
@@ -24,14 +22,14 @@ export function blockReason(event, root) {
 
   switch (event.tool_name) {
     case 'Bash':
-      return isHeredocCommand(input, FIRST_LINE, LAST_LINE)
-        ? null
-        : `the only shell command allowed is the workflow script, with its JSON between "${FIRST_LINE}" and "${LAST_LINE}".`;
+      return isExactCommand(input, COMMAND) ? null : `the only shell command allowed is "${COMMAND}".`;
     case 'Write':
-    case 'Edit':
-      return typeof input.file_path === 'string' && isProductPath(relative(root, resolve(root, input.file_path)))
+    case 'Edit': {
+      const path = targetPath(input, root);
+      return path === PO_REQUEST || isProductPath(path)
         ? null
-        : `this agent may only change ${PRODUCT_PATHS}.`;
+        : `this agent may only change ${PRODUCT_PATHS} and its request file ${PO_REQUEST}.`;
+    }
     case 'Agent':
       return input.subagent_type === REVIEWER && !input.model && !input.isolation
         ? null

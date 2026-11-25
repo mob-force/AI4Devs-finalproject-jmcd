@@ -1,11 +1,12 @@
 #!/usr/bin/env node
-// The git and GitHub steps of the product-owner agent. It reads one JSON request from stdin, checks
-// that the step is safe, runs it and prints the outcome. Anything unexpected prints "STOPPED:".
+// The git and GitHub steps of the product-owner agent. It takes the JSON request in
+// .agent-tmp/po-request.json, checks that the step is safe, runs it and prints the outcome.
+// Anything unexpected prints "STOPPED:".
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 
 import { FOOTER, neutralizeMentions, parseRepository } from '../product-review/publish-review.mjs';
+import { PO_REQUEST, takeRequest } from '../shared/agent-request.mjs';
 import { PRODUCT_PATHS, isProductPath } from './paths.mjs';
 
 const SCRIPT = '.claude/scripts/product-owner/workflow.mjs';
@@ -147,7 +148,9 @@ const actions = {
   },
 };
 
-export function perform(text) {
+export function perform() {
+  process.chdir(git('rev-parse', '--show-toplevel'));
+  const text = takeRequest(process.cwd(), PO_REQUEST);
   let request;
   try {
     request = JSON.parse(text);
@@ -155,13 +158,12 @@ export function perform(text) {
     throw new Error(`the request is not valid JSON (${error.message})`);
   }
   check(Object.hasOwn(actions, request.action), `action must be one of ${Object.keys(actions).join(', ')}`);
-  process.chdir(git('rev-parse', '--show-toplevel'));
   return actions[request.action](request);
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
   try {
-    console.log(perform(readFileSync(0, 'utf8')));
+    console.log(perform());
   } catch (error) {
     console.log(`STOPPED: ${error.message}`);
     process.exit(1);
