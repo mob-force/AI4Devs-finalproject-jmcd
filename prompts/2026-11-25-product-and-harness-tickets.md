@@ -1,6 +1,6 @@
-# Session: Product and harness tickets, ADR rule (KYP-7 to KYP-14)
+# Session: Product and harness tickets, ADR rule, product reviewer agent (KYP-7 to KYP-14)
 
-Branch: `docs/KYP-14-adr-rule` (Prompts 1 to 3 only changed Jira) · Date: 2026-11-25
+Branches: `docs/KYP-14-adr-rule` (Prompt 4), `chore/KYP-12-product-adversarial-reviewer` (Prompts 5, 6 and 8 to 10), `chore/KYP-4-jira-ticket-format` with `docs/KYP-14-adr-rule` (Prompt 7). Prompts 1 to 3 only changed Jira · Date: 2026-11-25
 
 ## Prompt 1
 
@@ -46,6 +46,24 @@ The tickets and the epic needs to be in the to-do status
 Implement KYP-14, create a dedicated branch and a PR when you finish your work
 ```
 
+## Prompt 5
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`)
+
+```
+Implement KYP-12, move the ticket to in-progress, create a dedicated branch and a PR when you finish your work
+```
+
+## Prompt 6
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`)
+
+```
+I didn't meant a different provider, what I meant is a different model
+```
+
 ## Prompt 7
 
 - Tool: Claude Code
@@ -54,3 +72,31 @@ Implement KYP-14, create a dedicated branch and a PR when you finish your work
 ```
 for the adr-1 and 2 re open each of those branches change the status to Adopted and create a PR for each
 ```
+
+## Prompt 8
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`)
+
+```
+add in the agent that the findings needs to be added as comment in a PR open with the branch containing the changes
+```
+
+## Prompt 9
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`)
+
+```
+given the script to publish the findings puts each comment in the finding, those findings should be part of the diff of the PR, the need to be visible for whoever is reviewing the PR. If it's not possible at least they need to be in the PR summary comment
+```
+
+## Prompt 10
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`)
+
+```
+create a dedicated folder for the created scripts to group them
+```
+
