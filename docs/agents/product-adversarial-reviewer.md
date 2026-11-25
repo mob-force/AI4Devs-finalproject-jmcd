@@ -1,6 +1,6 @@
 # Product Adversarial Reviewer
 
-An agent that challenges the product documentation (idea, PRD, user stories, road map). It looks for inconsistencies, edge cases and gaps, proves each finding, and agrees when the solution is good enough. It posts its findings on the open pull request of the branch that contains the changes. It never edits files.
+An agent that challenges the product documentation (idea, PRD, user stories, road map). It looks for inconsistencies, edge cases and gaps, proves each finding, and agrees when the solution is good enough. It posts its findings on the open pull request of the branch that contains the changes. It never edits files other than its own temporary report file.
 
 - Definition (instructions, severity levels, output format): `.claude/agents/product-adversarial-reviewer.md`
 - Publishing script and the hook that restricts the agent to it: `.claude/scripts/product-review/` (tests: `npm test`)
@@ -16,7 +16,7 @@ Without file names it reviews everything under `docs/product/`. To run it on its
 
 ```sh
 claude -p "Review docs/product/prd.md" --agent product-adversarial-reviewer \
-  --allowedTools "Read,Grep,Glob,WebSearch,WebFetch,Bash(node .claude/scripts/product-review/publish-review.mjs:*)"
+  --allowedTools "Read,Grep,Glob,WebSearch,WebFetch,Edit(.agent-tmp/**),Bash(node .claude/scripts/product-review/publish-review.mjs)"
 ```
 
 To get the report without posting anything, add "Do not publish." to the request.
@@ -27,7 +27,7 @@ To get the report without posting anything, add "Do not publish." to the request
 - The reviewed files are committed and pushed. Findings about a file that differs from the pull request are posted in the summary only, with a warning.
 - `gh` is signed in. Comments are posted under that account and say they come from the agent.
 - The folder is trusted in Claude Code, so that the agent's hook runs.
-- You allow the publishing command when asked, or pass it in `--allowedTools` as above.
+- You allow writing `.agent-tmp/review-report.md` and running the publishing command when asked, or pass both in `--allowedTools` as above.
 
 For a **follow-up review**, include the earlier findings and your response to each one. The reviewer marks them `resolved`, `withdrawn` or `open`, and only raises new findings about changed text or a blocker it missed.
 
@@ -76,4 +76,4 @@ After changing the instructions or the model, run both samples as described in `
 | 2026-11-25 | `flawed.md` | Pass: `changes_suggested`, all 7 planted flaws in 6 major findings, 11 of 11 quotes match the file |
 | 2026-11-25 | `sound.md` | Pass: `agree`, 2 minor findings, 4 of 4 quotes match the file |
 
-Both runs used only `claude-opus-5-5`, with the read-only definition that preceded publishing. Not covered by this check: follow-up reviews, external (web) proof, and being called as a subagent from another session. Publishing is checked separately with `npm test` and a dry run (`REVIEW_DRY_RUN=1`, which prints what would be posted).
+Both runs used only `claude-opus-5-5`, with the read-only definition that preceded publishing. Not covered by this check: follow-up reviews, external (web) proof, and being called as a subagent from another session. Publishing is checked separately with `npm test` and a dry run (`REVIEW_DRY_RUN=1`, which prints what would be posted). How the report reaches the script is explained in `docs/adr/0005-agent-requests-through-files.md`.

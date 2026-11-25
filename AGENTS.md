@@ -25,4 +25,5 @@ No application code yet: `readme.md`, `prompts.md`, `prompts/`, `docs/` and agen
 - Commit message rules and the Husky hook: `docs/commit-conventions.md`
 - Why decisions were made: `docs/adr/`
 - Writing an ADR (format, numbering, index): `docs/adr/README.md`
+- Writing product documentation from a Jira task with the Product Owner agent: `docs/agents/product-owner.md`
 - Reviewing product documentation with the adversarial reviewer agent: `docs/agents/product-adversarial-reviewer.md`

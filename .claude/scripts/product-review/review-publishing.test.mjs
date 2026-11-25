@@ -3,7 +3,7 @@ import { spawnSync } from 'node:child_process';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 
-import { FIRST_LINE, LAST_LINE, isAllowed } from './guard-review-bash.mjs';
+import { COMMAND, blockReason } from './guard-review.mjs';
 import {
   commentableLines,
   neutralizeMentions,
@@ -37,33 +37,31 @@ const report = (data = {}) => {
   return `## Product review: Changes suggested\n\nSummary.\n\n\`\`\`json\n${JSON.stringify(json, null, 2)}\n\`\`\``;
 };
 
-const command = (...body) => ({ command: [FIRST_LINE, ...body, LAST_LINE].join('\n') });
+const blocked = (tool_name, tool_input, extra = {}) => blockReason({ tool_name, tool_input, ...extra }, '/repo') !== null;
 
-test('guard allows only the publishing command', () => {
-  assert.equal(isAllowed(command('## Product review: Agree', '$(touch x) `touch y`')), true);
-  assert.equal(isAllowed({ command: `${command('report').command}\n` }), true);
+test('guard allows the publishing command and the report file only', () => {
+  assert.equal(blocked('Bash', { command: COMMAND }), false);
+  assert.equal(blocked('Bash', { command: `${COMMAND}\n` }), false);
+  assert.equal(blocked('Write', { file_path: '/repo/.agent-tmp/review-report.md' }), false);
 });
 
 test('guard blocks anything else', () => {
-  const blocked = [
-    { command: 'echo guard-test' },
-    { command: 'node .claude/scripts/product-review/publish-review.mjs' },
-    { command: FIRST_LINE.replace("'KYP_REVIEW'", 'KYP_REVIEW') + '\n$(touch x)\nKYP_REVIEW' },
-    { command: `${command('report').command}\ntouch x` },
-    command('report', LAST_LINE, 'touch x'),
-    { command: [`${FIRST_LINE}; touch x`, 'report', LAST_LINE].join('\n') },
-    { command: [`touch x && ${FIRST_LINE}`, 'report', LAST_LINE].join('\n') },
-    { ...command('report'), dangerouslyDisableSandbox: true },
-    {},
-  ];
-  for (const input of blocked) assert.equal(isAllowed(input), false, JSON.stringify(input));
+  const commands = ['echo guard-test', `${COMMAND} --force`, `${COMMAND}; touch x`, `${COMMAND}\ntouch x`,
+    `touch x && ${COMMAND}`];
+  for (const command of commands) assert.equal(blocked('Bash', { command }), true, command);
+  assert.equal(blocked('Bash', { command: COMMAND, dangerouslyDisableSandbox: true }), true);
+  for (const file_path of ['/repo/docs/product/prd.md', '/repo/.agent-tmp/other.md',
+    '/repo/.agent-tmp/../readme.md', '/tmp/review-report.md']) {
+    assert.equal(blocked('Write', { file_path }), true, file_path);
+  }
+  assert.equal(blocked('Edit', { file_path: '/repo/.agent-tmp/review-report.md' }), true);
 });
 
 test('guard hook exits with 2 when it blocks or cannot read its input', () => {
-  const script = fileURLToPath(new URL('./guard-review-bash.mjs', import.meta.url));
+  const script = fileURLToPath(new URL('./guard-review.mjs', import.meta.url));
   const exit = (input) => spawnSync('node', [script], { input }).status;
-  assert.equal(exit(JSON.stringify({ tool_input: command('report') })), 0);
-  assert.equal(exit(JSON.stringify({ tool_input: { command: 'ls' } })), 2);
+  assert.equal(exit(JSON.stringify({ tool_name: 'Bash', tool_input: { command: COMMAND } })), 0);
+  assert.equal(exit(JSON.stringify({ tool_name: 'Bash', tool_input: { command: 'ls' } })), 2);
   assert.equal(exit('not json'), 2);
 });
 
