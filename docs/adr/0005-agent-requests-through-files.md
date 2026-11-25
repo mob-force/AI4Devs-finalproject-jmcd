@@ -1,6 +1,6 @@
 # ADR 0005: Agents pass requests to their scripts through a file
 
-- **Status:** Proposed
+- **Status:** Adopted
 - **Date:** 2026-11-26
 - **Ticket:** KYP-13
 

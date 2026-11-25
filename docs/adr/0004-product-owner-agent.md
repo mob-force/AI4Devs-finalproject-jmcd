@@ -1,6 +1,6 @@
 # ADR 0004: Model and form of the Product Owner agent
 
-- **Status:** Proposed
+- **Status:** Adopted
 - **Date:** 2026-11-26
 - **Ticket:** KYP-13
 
