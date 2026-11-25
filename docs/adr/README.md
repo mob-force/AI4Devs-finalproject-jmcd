@@ -43,12 +43,12 @@ What was decided.
 | Status | Meaning |
 |---|---|
 | Proposed | Written, not yet confirmed |
-| Accepted | Confirmed and in force |
+| Adopted | Confirmed and in force |
 | Superseded by NNNN | Replaced by a later ADR |
 
 ## Index
 
 | ADR | Title | Status |
 |---|---|---|
-| [0001](0001-jira-ticket-format.md) | Jira ticket format and where its guidance lives | Proposed |
+| [0001](0001-jira-ticket-format.md) | Jira ticket format and where its guidance lives | Adopted |
 | [0002](0002-record-decisions-as-adrs.md) | Record important decisions as ADRs | Adopted |

@@ -1,6 +1,6 @@
 # ADR 0001: Jira ticket format and where its guidance lives
 
-- **Status:** Proposed
+- **Status:** Adopted
 - **Date:** 2026-11-24
 - **Ticket:** KYP-4
 
