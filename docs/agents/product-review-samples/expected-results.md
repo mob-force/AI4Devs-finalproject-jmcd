@@ -7,7 +7,7 @@ Run this check after changing the reviewer's instructions or model. Both samples
 Copy one sample alone into an empty folder as `docs/product/prd.md`, with the agent definition under `.claude/agents/`, so the reviewer sees neither this file nor the other sample. From that folder:
 
 ```sh
-claude -p "Review the product documentation in docs/product/." \
+claude -p "Review the product documentation in docs/product/. Do not publish." \
   --agent product-adversarial-reviewer \
   --allowedTools "Read,Grep,Glob" --output-format json
 ```

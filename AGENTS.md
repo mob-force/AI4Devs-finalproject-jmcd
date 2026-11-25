@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## State
 
-Docs-only so far: `readme.md`, `prompts.md`, `prompts/`, `docs/` and agent definitions in `.claude/agents/`, plus `package.json` used only for commit tooling (Husky, commitlint). No stack, build, lint or test commands are defined yet. Add them here once code lands, and don't invent them before then.
+No application code yet: `readme.md`, `prompts.md`, `prompts/`, `docs/` and agent definitions in `.claude/agents/`, plus Node tooling: commit checks (Husky, commitlint) and the agent scripts in `.claude/scripts/` (test them with `npm test`). No application stack, build or lint commands are defined yet. Add them here once code lands, and don't invent them before then.
 
 ## Rules
 
