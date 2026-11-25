@@ -1,6 +1,6 @@
 # Session: Product and harness tickets, ADR rule, product reviewer agent (KYP-7 to KYP-14)
 
-Branches: `docs/KYP-14-adr-rule` (Prompt 4), `chore/KYP-12-product-adversarial-reviewer` (Prompts 5, 6 and 8 to 10), `chore/KYP-4-jira-ticket-format` with `docs/KYP-14-adr-rule` (Prompt 7). Prompts 1 to 3 only changed Jira · Date: 2026-11-25
+Branches: `docs/KYP-14-adr-rule` (Prompt 4), `chore/KYP-12-product-adversarial-reviewer` (Prompts 5, 6 and 8 to 10), `chore/KYP-13-product-owner-agent` (Prompt 11), `chore/KYP-4-jira-ticket-format` with `docs/KYP-14-adr-rule` (Prompt 7). Prompts 1 to 3 only changed Jira · Date: 2026-11-25
 
 ## Prompt 1
 
@@ -98,5 +98,14 @@ given the script to publish the findings puts each comment in the finding, those
 
 ```
 create a dedicated folder for the created scripts to group them
+```
+
+## Prompt 11
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`)
+
+```
+Implement KYP-13, move the ticket to in-progress, create a dedicated branch and a PR when you finish your work
 ```
 
