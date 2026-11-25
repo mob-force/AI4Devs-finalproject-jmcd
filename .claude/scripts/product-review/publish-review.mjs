@@ -13,7 +13,7 @@ const VERDICTS = ['agree', 'changes_suggested', 'not_reviewed'];
 const SEVERITIES = ['blocker', 'major', 'minor'];
 const PROOF_TYPES = ['quote', 'scenario', 'external'];
 const MAX_BODY = 65536;
-const FOOTER =
+export const FOOTER =
   '_Posted by the Product Adversarial Reviewer, an AI agent. These are suggestions for the product team to accept or argue against._';
 
 const filled = (value) => typeof value === 'string' && value.trim() !== '';

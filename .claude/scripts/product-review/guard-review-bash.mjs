@@ -8,18 +8,21 @@ import { pathToFileURL } from 'node:url';
 export const FIRST_LINE = "node .claude/scripts/product-review/publish-review.mjs <<'KYP_REVIEW'";
 export const LAST_LINE = 'KYP_REVIEW';
 
-export function isAllowed(toolInput) {
+// True when the input is exactly one command, `firstLine`, with a heredoc ending in `lastLine`.
+export function isHeredocCommand(toolInput, firstLine, lastLine) {
   const command = toolInput?.command;
   if (typeof command !== 'string' || toolInput.dangerouslyDisableSandbox) return false;
   if (command.includes('\0') || command.includes('\r')) return false;
   const lines = command.replace(/\n+$/, '').split('\n');
   return (
     lines.length >= 3 &&
-    lines[0] === FIRST_LINE &&
+    lines[0] === firstLine &&
     // The first terminator line ends the heredoc, so it must also be the last line.
-    lines.indexOf(LAST_LINE) === lines.length - 1
+    lines.indexOf(lastLine) === lines.length - 1
   );
 }
+
+export const isAllowed = (toolInput) => isHeredocCommand(toolInput, FIRST_LINE, LAST_LINE);
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
   let allowed = false;
