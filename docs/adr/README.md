@@ -51,4 +51,4 @@ What was decided.
 | ADR | Title | Status |
 |---|---|---|
 | [0001](0001-jira-ticket-format.md) | Jira ticket format and where its guidance lives | Adopted |
-| [0002](0002-record-decisions-as-adrs.md) | Record important decisions as ADRs | Proposed |
+| [0002](0002-record-decisions-as-adrs.md) | Record important decisions as ADRs | Adopted |
