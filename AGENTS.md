@@ -15,6 +15,7 @@ Docs-only so far: `readme.md`, `prompts.md`, `prompts/` and `docs/`, plus `packa
 - **Log every prompt in a per-session Markdown file in `prompts/`.** One file per session, named `YYYY-MM-DD-<slug>.md`, with each prompt appended in order as `## Prompt N` and kept verbatim. Each entry must state the tool used (e.g. Claude Code) and the model (e.g. Claude Sonnet 5.5) as `- Tool:` and `- Model:` lines above the prompt. The root `prompts.md` is the course deliverable template: curate the best prompts (max 3 per section) into it from the session files.
 - **Branches and Jira:** work happens on branches named `<type>/KYP-<n>-<slug>` (e.g. `chore/KYP-1-AI-project-setup`). Create the branch before making any change.
 - **Commits** follow [Conventional Commits 1.0.0](https://www.conventionalcommits.org/es/v1.0.0/): `<type>(<optional scope>): <description>`, with `!` or a `BREAKING CHANGE:` footer for breaking changes. Reuse the branch type (`feat`, `fix`, `chore`, `docs`, ...) and reference the Jira key, e.g. `chore(KYP-1): add AGENTS.md project setup`. A Husky `commit-msg` hook (commitlint) rejects non-conforming messages, so run `npm install` after cloning to activate it.
+- **Always record important decisions as ADRs**, whether about setup, technology, product, process or anything else. The repo already shows *what* was done, so the ADR explains *why*. A decision is important if it is costly to reverse, picks between real alternatives, or changes how people or assistants work (e.g. choosing a stack, a data source or an agent's model, or adding a working rule). Routine changes that follow an existing convention or ADR (bug fixes, renames, typos) need none; if unsure, write one. Create it without being asked, on the same branch as the change, after reading `docs/adr/README.md`.
 - **Pointers are lazy.** References to other files in `AGENTS.md` are plain paths, never `@` imports. Nothing is loaded at agent start except `AGENTS.md` itself. Read a referenced file only when the current task needs it.
 - `AGENTS.md` is the source file. `CLAUDE.md` is a symlink to it, so edit `AGENTS.md`.
 
@@ -23,3 +24,4 @@ Docs-only so far: `readme.md`, `prompts.md`, `prompts/` and `docs/`, plus `packa
 - Creating or editing Jira tickets (Epic, Story, Task, Bug): `docs/jira-ticket-guidelines.md`
 - Commit message rules and the Husky hook: `docs/commit-conventions.md`
 - Why decisions were made: `docs/adr/`
+- Writing an ADR (format, numbering, index): `docs/adr/README.md`
