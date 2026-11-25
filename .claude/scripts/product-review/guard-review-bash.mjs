@@ -5,7 +5,7 @@
 import { readFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 
-export const FIRST_LINE = "node .claude/scripts/publish-review.mjs <<'KYP_REVIEW'";
+export const FIRST_LINE = "node .claude/scripts/product-review/publish-review.mjs <<'KYP_REVIEW'";
 export const LAST_LINE = 'KYP_REVIEW';
 
 export function isAllowed(toolInput) {

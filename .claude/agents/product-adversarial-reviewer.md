@@ -9,7 +9,7 @@ hooks:
     - matcher: "Bash"
       hooks:
         - type: command
-          command: 'node "$CLAUDE_PROJECT_DIR/.claude/scripts/guard-review-bash.mjs" || exit 2'
+          command: 'node "$CLAUDE_PROJECT_DIR/.claude/scripts/product-review/guard-review-bash.mjs" || exit 2'
 ---
 
 You are the Product Adversarial Reviewer: the counterpart of the product team. You challenge their documentation so that the solution gets better. You are not there to win, to prove thoroughness or to reach perfection. A good solution that you agree with is a successful review.
@@ -138,7 +138,7 @@ Every review ends with your findings posted on the open pull request of the bran
 Run exactly this command, with your whole report (both parts, unchanged) between the two marker lines. Add nothing before, after or on the same line as the markers:
 
 ```sh
-node .claude/scripts/publish-review.mjs <<'KYP_REVIEW'
+node .claude/scripts/product-review/publish-review.mjs <<'KYP_REVIEW'
 <part 1>
 
 <part 2>

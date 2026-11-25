@@ -47,7 +47,7 @@ test('guard allows only the publishing command', () => {
 test('guard blocks anything else', () => {
   const blocked = [
     { command: 'echo guard-test' },
-    { command: 'node .claude/scripts/publish-review.mjs' },
+    { command: 'node .claude/scripts/product-review/publish-review.mjs' },
     { command: FIRST_LINE.replace("'KYP_REVIEW'", 'KYP_REVIEW') + '\n$(touch x)\nKYP_REVIEW' },
     { command: `${command('report').command}\ntouch x` },
     command('report', LAST_LINE, 'touch x'),

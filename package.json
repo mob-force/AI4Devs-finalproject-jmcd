@@ -6,7 +6,7 @@
   "description": "Know Your Package (KYP): up-to-date information about Salesforce 2GP packages for ISV partners",
   "scripts": {
     "prepare": "husky",
-    "test": "node --test '.claude/scripts/*.test.mjs'"
+    "test": "node --test '.claude/scripts/**/*.test.mjs'"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.4",

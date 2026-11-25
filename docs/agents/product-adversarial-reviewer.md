@@ -3,7 +3,7 @@
 An agent that challenges the product documentation (idea, PRD, user stories, road map). It looks for inconsistencies, edge cases and gaps, proves each finding, and agrees when the solution is good enough. It posts its findings on the open pull request of the branch that contains the changes. It never edits files.
 
 - Definition (instructions, severity levels, output format): `.claude/agents/product-adversarial-reviewer.md`
-- Publishing script and the hook that restricts the agent to it: `.claude/scripts/` (tests: `npm test`)
+- Publishing script and the hook that restricts the agent to it: `.claude/scripts/product-review/` (tests: `npm test`)
 - Why this model and these tools: `docs/adr/0003-product-reviewer-model.md`
 
 ## Use it
@@ -16,7 +16,7 @@ Without file names it reviews everything under `docs/product/`. To run it on its
 
 ```sh
 claude -p "Review docs/product/prd.md" --agent product-adversarial-reviewer \
-  --allowedTools "Read,Grep,Glob,WebSearch,WebFetch,Bash(node .claude/scripts/publish-review.mjs:*)"
+  --allowedTools "Read,Grep,Glob,WebSearch,WebFetch,Bash(node .claude/scripts/product-review/publish-review.mjs:*)"
 ```
 
 To get the report without posting anything, add "Do not publish." to the request.
