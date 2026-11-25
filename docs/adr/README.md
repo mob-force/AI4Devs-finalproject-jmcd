@@ -52,3 +52,4 @@ What was decided.
 |---|---|---|
 | [0001](0001-jira-ticket-format.md) | Jira ticket format and where its guidance lives | Proposed |
 | [0002](0002-record-decisions-as-adrs.md) | Record important decisions as ADRs | Proposed |
+| [0003](0003-product-reviewer-model.md) | Model and form of the Product Adversarial Reviewer | Proposed |
