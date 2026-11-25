@@ -45,3 +45,12 @@ The tickets and the epic needs to be in the to-do status
 ```
 Implement KYP-14, create a dedicated branch and a PR when you finish your work
 ```
+
+## Prompt 7
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`)
+
+```
+for the adr-1 and 2 re open each of those branches change the status to Adopted and create a PR for each
+```
