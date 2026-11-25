@@ -1,6 +1,6 @@
 # Session: Product and harness tickets, ADR rule, product reviewer agent (KYP-7 to KYP-14)
 
-Branches: `docs/KYP-14-adr-rule` (Prompt 4), `chore/KYP-12-product-adversarial-reviewer` (Prompts 5 and 6). Prompts 1 to 3 only changed Jira · Date: 2026-11-25
+Branches: `docs/KYP-14-adr-rule` (Prompt 4), `chore/KYP-12-product-adversarial-reviewer` (Prompts 5, 6 and 8), `chore/KYP-4-jira-ticket-format` with `docs/KYP-14-adr-rule` (Prompt 7). Prompts 1 to 3 only changed Jira · Date: 2026-11-25
 
 ## Prompt 1
 
@@ -72,3 +72,13 @@ I didn't meant a different provider, what I meant is a different model
 ```
 for the adr-1 and 2 re open each of those branches change the status to Adopted and create a PR for each
 ```
+
+## Prompt 8
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`)
+
+```
+add in the agent that the findings needs to be added as comment in a PR open with the branch containing the changes
+```
+
