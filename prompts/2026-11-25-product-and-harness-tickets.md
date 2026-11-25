@@ -1,6 +1,6 @@
 # Session: Product and harness tickets, ADR rule, product reviewer agent (KYP-7 to KYP-14)
 
-Branches: `docs/KYP-14-adr-rule` (Prompt 4), `chore/KYP-12-product-adversarial-reviewer` (Prompts 5, 6, 8 and 9), `chore/KYP-4-jira-ticket-format` with `docs/KYP-14-adr-rule` (Prompt 7). Prompts 1 to 3 only changed Jira · Date: 2026-11-25
+Branches: `docs/KYP-14-adr-rule` (Prompt 4), `chore/KYP-12-product-adversarial-reviewer` (Prompts 5, 6 and 8 to 10), `chore/KYP-4-jira-ticket-format` with `docs/KYP-14-adr-rule` (Prompt 7). Prompts 1 to 3 only changed Jira · Date: 2026-11-25
 
 ## Prompt 1
 
@@ -89,5 +89,14 @@ add in the agent that the findings needs to be added as comment in a PR open wit
 
 ```
 given the script to publish the findings puts each comment in the finding, those findings should be part of the diff of the PR, the need to be visible for whoever is reviewing the PR. If it's not possible at least they need to be in the PR summary comment
+```
+
+## Prompt 10
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`)
+
+```
+create a dedicated folder for the created scripts to group them
 ```
 
