@@ -63,3 +63,12 @@ Implement KYP-12, move the ticket to in-progress, create a dedicated branch and 
 ```
 I didn't meant a different provider, what I meant is a different model
 ```
+
+## Prompt 7
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (`claude-sonnet-5-5`)
+
+```
+for the adr-1 and 2 re open each of those branches change the status to Adopted and create a PR for each
+```
