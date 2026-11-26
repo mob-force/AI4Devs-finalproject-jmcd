@@ -55,3 +55,5 @@ What was decided.
 | [0003](0003-product-reviewer-model.md) | Model and form of the Product Adversarial Reviewer | Proposed |
 | [0004](0004-product-owner-agent.md) | Model and form of the Product Owner agent | Adopted |
 | [0005](0005-agent-requests-through-files.md) | Agents pass requests to their scripts through a file | Adopted |
+| [0006](0006-main-goal-and-success-measure.md) | Main goal of Know Your Package and how it is measured | Proposed |
+| [0007](0007-tool-inside-salesforce.md) | Know Your Package is a tool used inside Salesforce | Proposed |

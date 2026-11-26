@@ -18,6 +18,24 @@ Puedes añadir adicionalmente la conversación completa como link o archivo adju
 
 **Prompt 1:**
 
+Claude Code, Claude Sonnet 5.5 ([sesión completa](prompts/2026-11-26-product-idea.md))
+
+```text
+@"product-owner (agent)" implement the KYP-8 
+
+<pasted_content>
+The project should implement a tool build within Salesforce to have:
+- Summary information of packages created in the org in the more visual way possible
+  - Number of packages
+  - Active customers per versions in package
+  - Latest version created per package
+- List of package and package details including related versions or subscribed customers
+  - View of the package dependency
+- List of versions and version details including related customers and orgs by version
+  - View of the hierarchy tree of the versions
+</pasted_content>
+```
+
 **Prompt 2:**
 
 **Prompt 3:**

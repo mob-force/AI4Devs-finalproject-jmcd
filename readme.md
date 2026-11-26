@@ -19,6 +19,8 @@
 
 ### **0.3. Descripción breve del proyecto:**
 
+Know Your Package (KYP) es un MVP de una herramienta, utilizada dentro de Salesforce, que ofrece a los partners ISV una vista visual y actualizada de sus paquetes gestionados de segunda generación (2GP): qué paquetes y versiones existen, cómo se relacionan y qué clientes usan cada versión.
+
 ### **0.4. URL del proyecto:**
 
 > Puede ser pública o privada, en cuyo caso deberás compartir los accesos de manera segura. Puedes enviarlos a [alvaro@lidr.co](mailto:alvaro@lidr.co) usando algún servicio como [onetimesecret](https://onetimesecret.com/).
@@ -37,6 +39,29 @@
 ### **1.1. Objetivo:**
 
 > Propósito del producto. Qué valor aporta, qué soluciona, y para quién.
+
+La idea completa, con sus fuentes y supuestos, está en [docs/product/idea.md](docs/product/idea.md).
+
+**Para quién:** partners ISV de Salesforce que desarrollan y distribuyen paquetes gestionados 2GP.
+
+**Qué soluciona:** responder de forma rápida y legible a la pregunta «¿qué hemos construido y quién está usando qué?». La información sobre paquetes, versiones, dependencias, instalaciones y licencias está en distintos lugares de Salesforce. Los problemas siguientes son hipótesis todavía sin validar con usuarios:
+
+- La información está dispersa y reunirla requiere trabajo manual.
+- La salida de comandos, el código de grafos y las listas de registros cuestan de interpretar, sobre todo a quien no usa la línea de comandos.
+- Las instalaciones se registran por org, mientras que suponemos que el partner razona en términos de clientes.
+
+**Qué valor aporta:** un único lugar para la visión global, resúmenes y diagramas visuales, y respuestas expresadas en clientes además de orgs.
+
+**Alternativa existente:** Package Visualizer, una aplicación gratuita de Salesforce Labs, ya cubre buena parte de esta idea. La diferencia que persigue KYP (una vista más sencilla, que empieza por el resumen y se expresa en clientes) todavía no está validada.
+
+**Objetivo principal:** que un partner ISV pueda ver, en un único lugar visual dentro de Salesforce, el estado actual de sus paquetes 2GP: qué paquetes y versiones existen, cómo se relacionan y qué clientes usan cada versión.
+
+**Cómo sabremos que se ha logrado:** en la prueba de aceptación del MVP, una persona que conoce el empaquetado 2GP y no ha recibido una explicación previa de KYP responde correctamente a las 4 preguntas siguientes, cada una en menos de 1 minuto y usando solo KYP. Una respuesta es correcta si coincide con los registros de origen de Salesforce en el momento de la prueba. El objetivo numérico y la definición de cliente activo (con el paquete instalado actualmente en al menos una de sus orgs de producción) son supuestos pendientes de confirmar.
+
+1. ¿Cuántos paquetes tenemos y cuál es la última versión creada de cada uno?
+2. En un paquete concreto, ¿cuántos clientes activos hay en cada versión?
+3. En una versión concreta, ¿qué clientes y cuáles de sus orgs la están usando?
+4. En una versión concreta, ¿de qué versión desciende y de qué paquetes depende?
 
 ### **1.2. Características y funcionalidades principales:**
 
