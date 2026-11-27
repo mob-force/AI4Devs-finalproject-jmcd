@@ -56,7 +56,7 @@ La idea completa, con sus fuentes y supuestos, está en [docs/product/idea.md](d
 
 **Objetivo principal:** que el Package Owner de un partner ISV pueda ver fácilmente, en un único lugar visual dentro de Salesforce, el estado actual de sus paquetes 2GP: qué paquetes y versiones existen, cómo se relacionan y qué clientes usan cada versión.
 
-**Cómo sabremos que se ha logrado:** en la prueba de aceptación del MVP, una persona que conoce el empaquetado 2GP y no ha recibido una explicación previa de KYP responde correctamente a las 4 preguntas siguientes, cada una en menos de 1 minuto y usando solo KYP. Una respuesta es correcta si coincide con los registros de origen de Salesforce en el momento de la prueba. Un cliente activo es el que tiene el paquete instalado actualmente en al menos una de sus orgs de producción.
+**Cómo sabremos que se ha logrado:** en la prueba de aceptación del MVP, al menos una persona que conoce el empaquetado 2GP y no ha recibido una explicación previa de KYP responde correctamente a las 4 preguntas siguientes, cada una en menos de 1 minuto y usando solo KYP. Una respuesta es correcta si coincide con los registros de origen de Salesforce en el momento de la prueba. Un cliente activo es el que tiene el paquete instalado actualmente en al menos una de sus orgs de producción, y contaría una vez en cada versión instalada en esas orgs (supuesto pendiente de confirmar). Las condiciones completas de la prueba y sus supuestos están en [docs/product/idea.md](docs/product/idea.md).
 
 1. ¿Cuántos paquetes tenemos y cuáles son la última versión promocionada y la última versión beta de cada uno?
 2. En un paquete concreto, ¿cuántos clientes activos hay en cada versión?

@@ -15,11 +15,12 @@ const blocked = (tool_name, tool_input, extra = {}) =>
   blockReason({ tool_name, tool_input, ...extra }, ROOT) !== null;
 
 test('only product documentation can be written', () => {
-  for (const path of ['readme.md', 'prompts.md', 'docs/product/prd.md', 'docs/adr/0005-x.md', 'prompts/a.md']) {
+  for (const path of ['readme.md', 'prompts.md', 'docs/product/prd.md', 'prompts/a.md']) {
     assert.equal(isProductPath(path), true, path);
     assert.equal(blocked('Write', { file_path: `${ROOT}/${path}` }), false, path);
   }
   for (const path of ['AGENTS.md', 'package.json', '.claude/agents/product-owner.md', 'docs/agents/x.md',
+    'docs/adr/0006-x.md',
     'docs/product/../../.claude/settings.json', '../outside.md', '/etc/hosts', 'docs/product']) {
     assert.equal(blocked('Edit', { file_path: path.startsWith('/') ? path : `${ROOT}/${path}` }), true, path);
   }

@@ -71,3 +71,57 @@ apply the suggestion of F1 in the idea.md file
 Apply the required changes, commit the changes and push it to github
 </pasted_content>
 ```
+
+## Prompt 6
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (claude-sonnet-5-5)
+
+```text
+create a ticket for the epic KYP to improve the ADR rules and creation. ADR should be created to track architectural decisions (e.g. Framework to use for the UI, patterns to use)  and project process decisions (e.g. we will use OpenSpec, what is the Jira format of the tickets). Product decisions should be sel-contained in the prouct documentation. As result of this change the ADRs from 0006 to 0011 neds to be deleted
+```
+
+## Prompt 7
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (claude-sonnet-5-5)
+
+```text
+implement ticket KYP-15
+```
+
+## Prompt 8
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (claude-sonnet-5-5)
+
+```text
+keep sequence of ADRs ADR-0012 should be ADR-0006
+```
+
+## Prompt 9
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (claude-sonnet-5-5)
+
+```text
+create a new subagent that looks for duplicated information regarding the latest changes. Give the list of what is the information appearing multiple times, where and suggest me how to solve that
+```
+
+## Prompt 10
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (claude-sonnet-5-5)
+
+```text
+Fix c1 to c8 with your suggestion
+```
+
+## Prompt 11
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (claude-sonnet-5-5)
+
+```text
+commit the changes made in the ticket and create a PR
+```

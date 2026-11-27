@@ -40,6 +40,8 @@ The project should implement a tool build within Salesforce to have:
 
 Claude Code, Claude Sonnet 5.5 ([sesión completa](prompts/2026-11-26-product-idea.md))
 
+> Nota: los ADR 0006 y 0007 que menciona este prompt se eliminaron en KYP-15 y sus decisiones están en [docs/product/idea.md](docs/product/idea.md). Hoy el número 0006 identifica otro ADR.
+
 ```text
 <pasted_content>
 1. Should KYP replace Package Visualizer, complement it, or do something else? It should be an alternative in the market, free as the Package Visualizer but with a better UX
