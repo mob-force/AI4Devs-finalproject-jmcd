@@ -55,3 +55,9 @@ What was decided.
 | [0003](0003-product-reviewer-model.md) | Model and form of the Product Adversarial Reviewer | Proposed |
 | [0004](0004-product-owner-agent.md) | Model and form of the Product Owner agent | Adopted |
 | [0005](0005-agent-requests-through-files.md) | Agents pass requests to their scripts through a file | Adopted |
+| [0006](0006-main-goal-and-success-measure.md) | Main goal of Know Your Package and how it is measured | Adopted |
+| [0007](0007-tool-inside-salesforce.md) | Know Your Package is a tool used inside Salesforce | Adopted |
+| [0008](0008-free-alternative-to-package-visualizer.md) | A free alternative to Package Visualizer with a better user experience | Adopted |
+| [0009](0009-package-owner-as-main-user.md) | The Package Owner is the main user | Adopted |
+| [0010](0010-view-only-2gp-mvp.md) | The MVP is view-only and limited to 2GP managed packages | Adopted |
+| [0011](0011-single-org-for-the-mvp.md) | The MVP assumes the Dev Hub and the LMA are in one org | Adopted |
