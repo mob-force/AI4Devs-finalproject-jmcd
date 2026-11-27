@@ -51,7 +51,7 @@ If the request needs a Jira ticket read, add the Jira tools listed in the defini
 3. Writes the document as `Proposed` and adds its index row.
 4. Reports the decision, the principles cited, open questions and unmet criteria.
 
-It stops there. Committing, opening the pull request, running `/forum-review`, setting a document to `Adopted` (in the file and in the index) and merging are yours. After a review, ask it to revise: it says what it did with each finding and leaves the review record untouched.
+It stops there. Committing, opening the pull request, running `/forum-review` (in a normal session, as this agent cannot start the reviewers), setting a document to `Adopted` (in the file and in the index) and merging are yours. After a review, ask it to revise: it says what it did with each finding and leaves the review record untouched.
 
 ## What it may change
 

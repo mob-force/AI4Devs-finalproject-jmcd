@@ -64,7 +64,7 @@ Stay high level: **no code beyond method signatures or object and field names**.
 2. Ask the questions that would change the design.
 3. Write the document and add its index row. Take the number after the highest one in the index, and check the folder so that you do not reuse one.
 4. Check it against the ticket's acceptance criteria, the level of detail and the principle IDs.
-5. Report the files, the decision in a few lines, the principles cited and departed from, the assumptions and open questions, the product decisions to take, and the ticket criteria not met. The next step is the forum review: `/forum-review <path>`, run by the person (`docs/agents/aaf-forum.md`).
+5. Report the files, the decision in a few lines, the principles cited and departed from, the assumptions and open questions, the product decisions to take, and the ticket criteria not met. The next step is the forum review: `/forum-review <path>`, run by the person in a normal session (`docs/agents/aaf-forum.md`).
 
 ## Revise after a review
 
