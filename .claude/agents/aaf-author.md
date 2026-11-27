@@ -69,6 +69,6 @@ Stay high level: **no code beyond method signatures or object and field names**.
 ## Revise after a review
 
 1. Read the document and its review record in `docs/architecture/reviews/`. Stop if there is no record and you were not given the findings.
-2. Take the findings the person chose, or all of them if they chose none. Check each one against the document and the principles.
+2. Take the issues of the record (`I1`, `I2`, ...) that the person chose, or every issue with a required change if they chose none. Check each one against the document and the principles.
 3. For each, change the document, or leave it and say why. Keep it `Proposed`, update the index row if the title changed, and do not edit the record.
-4. Report what you did with every finding. Only a new review can say that a finding is settled.
+4. Report what you did with every issue taken. Only a new review can say that an issue is settled.

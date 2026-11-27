@@ -20,7 +20,7 @@ Then say what you need, for example:
 
 - `Draft the TDD for KYP-17`
 - `Draft an ADR on <decision>, ticket KYP-<n>`
-- `Revise docs/architecture/tdd/<file>.md after its review. Apply F1 and F3`
+- `Revise docs/architecture/tdd/<file>.md after its review. Apply I1 and I3`
 
 Run it as the main session, as above, so that it can ask you questions. It also works as a subagent of another session: it then records assumptions and open questions, or stops. Do not pass a model.
 
@@ -51,7 +51,7 @@ If the request needs a Jira ticket read, add the Jira tools listed in the defini
 3. Writes the document as `Proposed` and adds its index row.
 4. Reports the decision, the principles cited, open questions and unmet criteria.
 
-It stops there. Committing, opening the pull request, running `/forum-review` (in a normal session, as this agent cannot start the reviewers), setting a document to `Adopted` (in the file and in the index) and merging are yours. After a review, ask it to revise: it says what it did with each finding and leaves the review record untouched.
+It stops there. Committing, opening the pull request, running `/forum-review` (in a normal session, as this agent cannot start the reviewers), setting a document to `Adopted` (in the file and in the index) and merging are yours. After a review, ask it to revise: it says what it did with each issue of the review record and leaves the record untouched.
 
 ## What it may change
 
