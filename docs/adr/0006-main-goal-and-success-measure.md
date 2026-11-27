@@ -1,6 +1,6 @@
 # ADR 0006: Main goal of Know Your Package and how it is measured
 
-- **Status:** Proposed
+- **Status:** Adopted
 - **Date:** 2026-11-26
 - **Ticket:** KYP-8
 
@@ -10,19 +10,23 @@ KYP-8 asks for a single main goal and a way to know it is achieved. Every PRD re
 
 The input for the task asks for visual views of packages, versions, dependencies, version hierarchy, customers and orgs. It states no goal or measure. There are no users yet, no user research and no measurement of the current situation.
 
+On review, the product decision maker confirmed that making things easy for the user is the main goal of KYP, confirmed the target and the definition of an active customer, and asked for both the latest promoted and the latest beta version to be shown.
+
 ## Decision
 
-The main goal is visibility: an ISV partner can see, in one visual place inside Salesforce, which packages and versions exist, how they relate, and which customers run each version.
+The main goal is easy visibility: a Package Owner at an ISV partner can easily see, in one visual place inside Salesforce, which packages and versions exist, how they relate, and which customers run each version.
 
 It is measured at the MVP acceptance test with four reference questions that must all be answered correctly, each in under 1 minute, using only KYP. The questions and test conditions are in `docs/product/idea.md`.
+
+An active customer is one with the package installed in at least one production org. The first question asks for both the latest promoted version and the latest beta version of each package.
 
 ## Consequences
 
 - Positive: the measure is testable with the MVP alone and needs no real users or usage history.
 - Positive: it covers each kind of view in the task input, so the PRD can trace requirements to a question.
 - Negative: it shows that the product can answer the questions, not that partners want it or that it saves them time.
-- Negative: the four questions pull dependencies and version hierarchy into the goal. If the PRD leaves either out of the MVP, the goal and measure must change with it.
-- Negative: the target values and the definition of an active customer are not validated.
+- Negative: the four questions pull dependencies and version hierarchy into the goal, so both have to be in the MVP (ADR 0010).
+- Negative: the target values were set without a measurement of the current situation or user research.
 
 ## Alternatives considered
 

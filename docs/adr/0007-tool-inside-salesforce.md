@@ -1,6 +1,6 @@
 # ADR 0007: Know Your Package is a tool used inside Salesforce
 
-- **Status:** Proposed
+- **Status:** Adopted
 - **Date:** 2026-11-26
 - **Ticket:** KYP-8
 
@@ -18,7 +18,7 @@ KYP is a tool that the ISV partner uses inside Salesforce.
 
 - Positive (assumed): partners get the information in the platform where they already manage their packages, without another application to sign in to.
 - Negative: what the product can show is limited to what can be obtained from within Salesforce, which is not yet verified (assumption A10 in `docs/product/idea.md`).
-- Negative: it competes directly with Package Visualizer, a free Salesforce Labs app that also works inside Salesforce.
+- Negative: it competes directly with Package Visualizer, a free Salesforce Labs app that also works inside Salesforce (ADR 0008).
 - Open: which org the tool runs in and how a partner would install it.
 
 ## Alternatives considered
