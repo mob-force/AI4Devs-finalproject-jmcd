@@ -70,3 +70,5 @@ What was decided.
 | [0004](0004-product-owner-agent.md) | Model and form of the Product Owner agent | Adopted |
 | [0005](0005-agent-requests-through-files.md) | Agents pass requests to their scripts through a file | Adopted |
 | [0006](0006-adrs-for-architecture-and-process.md) | ADRs cover only architectural and project process decisions | Adopted |
+| [0007](0007-apex-layering.md) | Layer Apex with the Apex Enterprise Patterns, without the fflib library | Proposed |
+| [0008](0008-trigger-framework.md) | A minimal in-house trigger framework | Proposed |
