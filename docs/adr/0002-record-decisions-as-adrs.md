@@ -1,6 +1,6 @@
 # ADR 0002: Record important decisions as ADRs
 
-- **Status:** Adopted
+- **Status:** Superseded by 0006
 - **Date:** 2026-11-25
 - **Ticket:** KYP-14
 

@@ -1,7 +1,7 @@
 // The only files the product-owner agent may write and commit: product documentation, the course
-// deliverables, decision records and the prompt log.
+// deliverables and the prompt log.
 const FILES = ['readme.md', 'prompts.md'];
-const FOLDERS = ['docs/product/', 'docs/adr/', 'prompts/'];
+const FOLDERS = ['docs/product/', 'prompts/'];
 
 // `path` is relative to the repository root.
 export function isProductPath(path) {
