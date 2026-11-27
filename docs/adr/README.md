@@ -70,3 +70,4 @@ What was decided.
 | [0004](0004-product-owner-agent.md) | Model and form of the Product Owner agent | Adopted |
 | [0005](0005-agent-requests-through-files.md) | Agents pass requests to their scripts through a file | Adopted |
 | [0006](0006-adrs-for-architecture-and-process.md) | ADRs cover only architectural and project process decisions | Adopted |
+| [0011](0011-forum-review-command-and-chair.md) | The architecture review runs as a command with a separate chair | Proposed |
