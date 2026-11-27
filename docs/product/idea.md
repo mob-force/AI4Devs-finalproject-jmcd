@@ -73,7 +73,7 @@ Know Your Package is a free tool used **inside Salesforce** **[D7]** that presen
 2. **Package:** one package, with its versions, dependencies and customers.
 3. **Version:** one version, with its place in the version hierarchy and the customers and orgs running it.
 
-What is in and out of the MVP is in [MVP scope](#mvp-scope). The detailed features of each level and their priority belong to the PRD (KYP-9). The feature list received as input for this task is recorded word for word in [the session prompt log](../../prompts/2026-11-26-product-idea.md) (Prompt 3), as input for that task.
+What is in and out of the MVP is in [MVP scope](#mvp-scope). The detailed features of each level and their priority are in the [PRD](prd.md#features-and-functional-requirements) (KYP-9). The feature list received as input for this task is recorded word for word in [the session prompt log](../../prompts/2026-11-26-product-idea.md) (Prompt 3), as input for the PRD.
 
 ## Value for the ISV partner
 
@@ -120,7 +120,7 @@ The MVP only shows information, about 2GP managed packages, and includes the vie
 - First-generation (1GP), unmanaged and unlocked packages.
 - Analytics about how customers use the package.
 
-The detailed list of what is in and out of the MVP belongs to the PRD (KYP-9).
+The detailed list of what is in and out of the MVP is in the [PRD](prd.md#mvp-scope).
 
 ## Product decisions
 
@@ -198,18 +198,20 @@ Unless a decision says otherwise, reasons for rejecting alternatives are the ass
 
 ## Assumptions not yet validated
 
+Assumptions from A14 onwards are in the [PRD](prd.md#added-by-this-document).
+
 | ID | Assumption | How to validate it |
 |---|---|---|
 | A1 | Getting the overall picture today requires combining several sources and tools by hand | Interview ISV partners and follow how they answer Q1 to Q4 |
 | A2 | The Package Owner, and product, release and support roles, need these answers, find the current outputs hard to read, and decide more slowly because of it | Interview people in those roles |
 | A3 | Partners reason about customers more than about orgs | Same interviews |
-| A4 | A customer may have several orgs, and each subscriber org can be linked to its customer, probably through LMA licence records | Check the available data while writing the PRD |
+| A4 | A customer may have several orgs, and each subscriber org can be linked to its customer, probably through LMA licence records | Checked in documentation only while writing the PRD, which indicates that the link may be missing for some orgs ([A14](prd.md#added-by-this-document)). Check it in a real org |
 | A5 | An active customer counts once on each version installed in its production orgs | Product decision to confirm |
 | A6 | A simpler, summary-first, customer-based view gives a noticeably better user experience than Package Visualizer | Try Package Visualizer against Q1 to Q4 and compare it with KYP |
 | A8 | Answering these questions today takes noticeably longer than the target | Time the current way of answering them |
 | A10 | A tool inside Salesforce can obtain package, version, dependency, subscriber and customer data when the Dev Hub and the LMA are in the same org | Feasibility check before the MVP scope is closed |
 | A12 | The subscriber orgs and installations needed for the acceptance test can be set up | Try it before the MVP scope is closed |
-| A13 | The "latest" promoted or beta version is the most recently created one of its kind | Confirm while writing the PRD |
+| A13 | The "latest" promoted or beta version is the most recently created one of its kind | Product decision to confirm. The PRD is written on this assumption |
 
 ## Sources
 

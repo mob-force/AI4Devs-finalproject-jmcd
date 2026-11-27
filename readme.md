@@ -69,6 +69,26 @@ La idea completa, con sus fuentes y supuestos, está en [docs/product/idea.md](d
 
 > Enumera y describe las características y funcionalidades específicas que tiene el producto para satisfacer las necesidades identificadas.
 
+Los requisitos completos, con su identificador, prioridad y supuestos, están en [docs/product/prd.md](docs/product/prd.md). Es una propuesta: las prioridades, el límite detallado del MVP y los supuestos están pendientes de confirmar, y todavía no se ha comprobado en una org real que la información pueda obtenerse.
+
+El MVP tiene cinco funcionalidades:
+
+1. **Visión general:** número de paquetes gestionados 2GP y, para cada uno, la última versión promocionada, la última versión beta, un gráfico de clientes activos por versión y el total de clientes activos distintos. «Última» significa la creada más recientemente (supuesto pendiente de confirmar).
+2. **Detalle de paquete:** datos del paquete, sus versiones con los clientes activos de cada una y, con prioridad recomendable, la lista de clientes que lo tienen instalado.
+3. **Detalle de versión:** datos de la versión y clientes y orgs (producción y sandbox) que la usan. Además, con prioridad recomendable, una lista de las versiones de todos los paquetes que se puede acotar a un paquete.
+4. **Dependencias:** diagrama de las versiones de paquete de las que depende una versión, incluidas las de paquetes ajenos al Dev Hub. En la página del paquete se muestran las de su última versión promocionada o, si no hay ninguna, las de su última beta.
+5. **Árbol de versiones:** relación de cada versión con su ancestro, distinguiendo las promocionadas de las beta.
+
+**Reglas comunes a todas las funcionalidades:**
+
+- Las orgs sin cliente conocido se muestran como «cliente desconocido»: no se suman a ningún cliente ni se ocultan.
+- Solo se cuentan las instalaciones actuales. Los paquetes y versiones eliminados quedan fuera, salvo las versiones eliminadas que sigan instaladas, que se muestran marcadas como tales.
+- Cuando una información no puede obtenerse, KYP lo indica en lugar de mostrar un cero o una lista vacía.
+
+**Requisitos no funcionales:** cada pregunta de referencia se responde en menos de 1 minuto; todo se consulta dentro de Salesforce; la información está actualizada o indica cuándo se obtuvo; los resultados son completos o avisan de que no lo son; KYP solo consulta; solo accede quien el partner autorice; y los datos de clientes, orgs y licencias no salen de las orgs de Salesforce del partner. Con prioridad recomendable: cada vista se muestra en menos de 10 segundos con los datos de prueba, y los gráficos y diagramas se entienden sin depender solo del color.
+
+**Fuera del MVP:** actualizaciones push, gestión de licencias, analíticas de uso, paquetes de primera generación, desbloqueados y no gestionados, Dev Hub y License Management App en orgs distintas, vista por cliente, consulta de qué paquetes dependen de uno dado, y búsqueda y filtros por cliente, org o número de versión.
+
 ### **1.3. Diseño y experiencia de usuario:**
 
 > Proporciona imágenes y/o videotutorial mostrando la experiencia del usuario desde que aterriza en la aplicación, pasando por todas las funcionalidades principales.

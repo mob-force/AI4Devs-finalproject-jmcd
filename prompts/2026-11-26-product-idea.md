@@ -125,3 +125,12 @@ Fix c1 to c8 with your suggestion
 ```text
 commit the changes made in the ticket and create a PR
 ```
+
+## Prompt 12
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (claude-sonnet-5-5)
+
+```text
+@"product-owner (agent)" implement KYP-9 user story using the docs/product/idea.md as starting point
+```
