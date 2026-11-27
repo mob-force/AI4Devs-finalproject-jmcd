@@ -26,7 +26,7 @@ Something also has to start the reviewers. KYP-23 assumed that a Claude Code sub
 - Positive: the verdict can be checked against the findings table of the record.
 - Negative: nothing enforces the fan-out, the wait or the unchanged answers. The main session follows instructions, on a model that is not pinned.
 - Negative: the five answers pass through the main session and take up its context.
-- Negative: each review starts six subagents. The chair's model costs twice as much per token as the author's ($4 / $20 against $2 / $10 per million input / output tokens at [API rates](https://platform.claude.com/docs/en/about-claude/pricing) on 2026-11-28).
+- Negative: each review starts six subagents. The chair runs on the reviewers' model, which costs more per token than the author's (prices in ADR 0010).
 - Negative: the hook lets the chair write any review record of an existing document, not only the current one, and does not check what the record says.
 - Negative: Claude Code skips the hook when the folder itself is not trusted. There only the permission settings limit `Write`, so the chair must not be combined with broad edit permissions.
 - Negative: the pinned ID does not follow new releases, so changing it means a new ADR.
@@ -43,6 +43,6 @@ Something also has to start the reviewers. KYP-23 assumed that a Claude Code sub
 - **A file in `.claude/commands/`:** still works, but Claude Code has merged commands into skills and [recommends skills](https://code.claude.com/docs/en/skills) for new work.
 - **A script that writes the record from a request file** (the pattern of ADR 0005): could check the content, but the chair would need a shell, and the record is a local file that is reviewed before it is committed.
 - **Claude Sonnet 5.5 for the chair:** cheaper, but the author's model, so it would tend to accept the author's assumptions.
-- **Claude Fable 5.2:** costs twice as much per token as Claude Opus 5.5 ($8 / $40), which is not justified for weighing at most 25 short findings.
+- **Claude Fable 5.2:** costs more per token than Claude Opus 5.5, which is not justified for weighing at most 25 short findings.
 - **Claude Haiku 5.5:** much cheaper, but settling conflicts between reviewers needs stronger reasoning.
 - **The `opus` alias:** the chair's behaviour could change with a release or with the session's Opus version without anyone noticing.

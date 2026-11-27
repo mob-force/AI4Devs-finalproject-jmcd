@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## State
 
-No application code yet: `readme.md`, `prompts.md`, `prompts/`, `docs/` and agent definitions in `.claude/agents/`, plus Node tooling: commit checks (Husky, commitlint) and the agent scripts in `.claude/scripts/`, one folder per feature (test them with `npm test`). No application stack, build or lint commands are defined yet. Add them here once code lands, and don't invent them before then.
+No application code yet: `readme.md`, `prompts.md`, `prompts/`, `docs/`, agent definitions in `.claude/agents/` and skills in `.claude/skills/`, plus Node tooling: commit checks (Husky, commitlint) and the agent scripts in `.claude/scripts/`, one folder per feature (test them with `npm test`). No application stack, build or lint commands are defined yet. Add them here once code lands, and don't invent them before then.
 
 ## Rules
 

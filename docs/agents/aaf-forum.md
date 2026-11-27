@@ -28,7 +28,7 @@ From a session in the repository root:
 /forum-review docs/adr/0007-<slug>.md
 ```
 
-A pattern works if it matches one file, such as `/forum-review docs/adr/0007-*.md`. Any session will do, the one that drafted the document included: the reviewers get only the path, and the chair gets the path, the date and their answers.
+A pattern works if it matches one file, such as `/forum-review docs/adr/0007-*.md`. Use a normal session: an `aaf-author` session cannot start the reviewers. A session that drafted the document as a subagent will do, because the reviewers get only the path, and the chair gets the path, the date and their answers.
 
 Only you can start it: Claude cannot run the command on its own. In a terminal, without a session:
 
@@ -40,7 +40,7 @@ claude -p "/forum-review docs/adr/0007-<slug>.md" --allowedTools "Edit(docs/arch
 
 | Need | Why |
 |---|---|
-| The author's and reviewers' work is on your branch, with `docs/architecture/review-contract.md` | The command stops if an agent is missing, and the chair if the contract is |
+| The reviewers, the chair and `docs/architecture/review-contract.md` are on your branch | The command stops if an agent is missing, and the chair if the contract is |
 | The folder itself is trusted in Claude Code | Otherwise the hook that limits the chair does not run. Trusting only a parent folder is not enough, and `claude -p` never asks |
 | The earlier record is committed, when reviewing again | The new record replaces it, and Git keeps the history |
 | You allow the chair to write the record when asked, or pass it in `--allowedTools` as above | Without it no record is written. The reviewers' permissions are in their guide |

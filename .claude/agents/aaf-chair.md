@@ -36,7 +36,8 @@ Read the document completely, and `docs/architecture/review-contract.md`, which 
 
 - there is exactly one answer from each of the five reviewers,
 - each answer is about this document,
-- each answer follows the contract.
+- each answer follows the contract,
+- no answer says that the document was not reviewed, which the contract writes as a finding whose problem starts `Not reviewed:`. That is a missing review, never a reason to reject the document.
 
 If a check fails, or you cannot read either file, write nothing and answer `**Record:** NOT RECORDED: <reason>`. Never fill in, repair or guess a reviewer's answer.
 
@@ -104,7 +105,7 @@ Write the record to `docs/architecture/reviews/ADR-NNNN-review.md` or `docs/arch
 - **Problem:** <what is wrong, with the section or line of the document>
 - **Why it matters:** <consequence>
 - **Ruling:** <why upheld, re-tagged or overruled, and how a conflict was settled>
-- **Required change:** <the smallest change that resolves it, "optional: ..." for a suggestion, or "none" when overruled>
+- **Required change:** <the smallest change that resolves it (for a concern, stating in the document why the risk is accepted also does), "optional: ..." for a suggestion, or "none" when overruled>
 
 ## Left to development
 
