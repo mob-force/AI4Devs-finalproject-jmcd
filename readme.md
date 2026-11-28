@@ -52,22 +52,42 @@ La idea completa, con sus fuentes y supuestos, está en [docs/product/idea.md](d
 
 **Qué valor aporta:** un único lugar para la visión global, resúmenes y diagramas visuales, y respuestas expresadas en clientes además de orgs.
 
-**Alternativa existente:** Package Visualizer, una aplicación gratuita de Salesforce Labs, ya cubre buena parte de esta idea. KYP quiere ser una alternativa, también gratuita, con una mejor experiencia de usuario. Esperamos lograrlo con una vista más sencilla, que empieza por el resumen y se expresa en clientes, aunque esta mejora todavía no está validada.
+**Alternativa existente:** Package Visualizer, una aplicación gratuita de Salesforce Labs, ya cubre buena parte de esta idea. KYP quiere ser una alternativa, también gratuita, con una mejor experiencia de usuario. Esperamos lograrlo con una vista más sencilla, que empieza por el resumen y se expresa en clientes, una mejora validada según el criterio del Product Owner humano, pero todavía no probada.
 
 **Objetivo principal:** que el Package Owner de un partner ISV pueda ver fácilmente, en un único lugar visual dentro de Salesforce, el estado actual de sus paquetes 2GP: qué paquetes y versiones existen, cómo se relacionan y qué clientes usan cada versión.
 
-**Cómo sabremos que se ha logrado:** en la prueba de aceptación del MVP, al menos una persona que conoce el empaquetado 2GP y no ha recibido una explicación previa de KYP responde correctamente a las 4 preguntas siguientes, cada una en menos de 1 minuto y usando solo KYP. Una respuesta es correcta si coincide con los registros de origen de Salesforce en el momento de la prueba. Un cliente activo es el que tiene el paquete instalado actualmente en al menos una de sus orgs de producción, y contaría una vez en cada versión instalada en esas orgs (supuesto pendiente de confirmar). Las condiciones completas de la prueba y sus supuestos están en [docs/product/idea.md](docs/product/idea.md).
+**Cómo sabremos que se ha logrado:** en la prueba de aceptación del MVP, al menos una persona que conoce el empaquetado 2GP y no ha recibido una explicación previa de KYP responde correctamente a las 4 preguntas siguientes, cada una en menos de 1 minuto y usando solo KYP. Una respuesta es correcta si coincide con los datos cargados en KYP en el momento de la prueba. Un cliente activo es el que tiene el paquete instalado actualmente en al menos una de sus orgs de producción, y cuenta una vez en cada versión instalada en esas orgs (supuesto validado por el Product Owner humano). Las condiciones completas de la prueba y sus supuestos están en [docs/product/idea.md](docs/product/idea.md).
 
 1. ¿Cuántos paquetes tenemos y cuáles son la última versión promocionada y la última versión beta de cada uno?
 2. En un paquete concreto, ¿cuántos clientes activos hay en cada versión?
 3. En una versión concreta, ¿qué clientes y cuáles de sus orgs la están usando?
 4. En una versión concreta, ¿de qué versión desciende y de qué paquetes depende?
 
-**Alcance del MVP:** solo consulta información de paquetes gestionados 2GP, incluidas las dependencias y el árbol de versiones. Quedan fuera las actualizaciones push, la gestión de licencias, las analíticas de uso y otros tipos de paquete. Se asume que la License Management App está en la misma org que el Dev Hub.
+**Alcance del MVP:** solo consulta información de paquetes gestionados 2GP, incluidas las dependencias y el árbol de versiones. Quedan fuera las actualizaciones push, la gestión de licencias, las analíticas de uso y otros tipos de paquete. En el MVP los datos se cargan a mano y la sincronización con la org del partner u otras fuentes de datos queda para una fase posterior, en la que se asume que la License Management App está en la misma org que el Dev Hub.
 
 ### **1.2. Características y funcionalidades principales:**
 
 > Enumera y describe las características y funcionalidades específicas que tiene el producto para satisfacer las necesidades identificadas.
+
+Los requisitos completos, con su identificador, prioridad y supuestos, están en [docs/product/prd.md](docs/product/prd.md). Es una propuesta: las prioridades y el límite detallado del MVP están pendientes de confirmar. Los supuestos están validados según el criterio del Product Owner humano. En el MVP el modelo de datos de la aplicación contiene toda la información necesaria y los datos se cargan a mano.
+
+El MVP tiene cinco funcionalidades:
+
+1. **Visión general:** número de paquetes gestionados 2GP y, para cada uno, la última versión promocionada, la última versión beta, un gráfico de clientes activos por versión y el total de clientes activos distintos. El gráfico incluye las versiones promocionadas y cualquier otra con una instalación actual, e indica cuántas versiones beta no se muestran. «Última» significa la creada más recientemente (supuesto validado por el Product Owner humano).
+2. **Detalle de paquete:** datos del paquete, la lista de sus versiones con los clientes activos de cada una y la lista de los clientes que lo tienen instalado.
+3. **Detalle de versión:** datos de la versión y una única lista de las orgs (producción y sandbox) que la usan, cada una con su cliente. Además, con prioridad recomendable, una lista de las versiones de todos los paquetes que se puede acotar a un paquete.
+4. **Dependencias:** diagrama de las versiones de paquete de las que depende una versión, incluidas las de paquetes ajenos al Dev Hub. En la página del paquete se muestran las de su última versión promocionada o, si no hay ninguna, las de su última beta.
+5. **Árbol de versiones:** relación de cada versión con su ancestro, distinguiendo las promocionadas de las beta.
+
+**Reglas comunes a todas las funcionalidades:**
+
+- Las orgs sin cliente conocido se muestran como «cliente desconocido»: no se suman a ningún cliente ni se ocultan.
+- Solo se cuentan las instalaciones actuales. Los paquetes y versiones eliminados quedan fuera, salvo las versiones eliminadas que sigan instaladas, que se muestran marcadas como tales.
+- Cuando una información no está disponible, KYP lo indica en lugar de mostrar un cero o una lista vacía.
+
+**Requisitos no funcionales:** cada pregunta de referencia se responde en menos de 1 minuto; todo se consulta dentro de Salesforce; cada vista muestra los datos que KYP tiene en el momento de abrirla; los resultados son completos o avisan de que no lo son; KYP solo consulta; solo accede quien el partner autorice; y los datos de clientes, orgs y licencias no salen de las orgs de Salesforce del partner. Con prioridad recomendable: cada vista se muestra en menos de 10 segundos con los datos de prueba, y los gráficos y diagramas se entienden sin depender solo del color.
+
+**Fuera del MVP:** sincronización de datos con la org del partner u otras fuentes, actualizaciones push, gestión de licencias, analíticas de uso, paquetes de primera generación, desbloqueados y no gestionados, Dev Hub y License Management App en orgs distintas, vista por cliente, consulta de qué paquetes dependen de uno dado, y búsqueda y filtros por cliente, org o número de versión.
 
 ### **1.3. Diseño y experiencia de usuario:**
 

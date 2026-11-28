@@ -125,3 +125,66 @@ Fix c1 to c8 with your suggestion
 ```text
 commit the changes made in the ticket and create a PR
 ```
+
+## Prompt 12
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (claude-sonnet-5-5)
+
+```text
+@"product-owner (agent)" implement KYP-9 user story using the docs/product/idea.md as starting point
+```
+
+## Prompt 13
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (claude-sonnet-5-5)
+
+```text
+apply suggested fix for the mayor findining
+```
+
+## Prompt 14
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (claude-sonnet-5-5)
+
+```text
+in the current PRD remove any technical reference, including data model or data already in Salesforce. That should be cover on the architect, technical and data model design
+```
+
+## Prompt 15
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (claude-sonnet-5-5)
+
+```text
+Update the PRD> in the package detail page the list of related version and customers should be also show. In the version the customer and orgs with that version should be displayed as single list
+```
+
+## Prompt 16
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (claude-sonnet-5-5)
+
+```text
+change State after this document of each  assumption on he PRD to validated by the criteria of the human product owner. You can tag me for future knowledge
+```
+
+## Prompt 17
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (claude-sonnet-5-5)
+
+```text
+Risk related with data can be mitigated given the data model of the app to be created should contain all the required objects. How those table were be seeded are not part of the MVP. Manual data load will be use for the MVP to check that the app works as expected. Data sync with the org data or any other required data sources is out of the scope of the MVP and can be part of next phases as other features have been listed. Update the PRD
+```
+
+## Prompt 18
+
+- Tool: Claude Code
+- Model: Claude Sonnet 5.5 (claude-sonnet-5-5)
+
+```text
+commit the latest changes on the PRD, prompts and readme and push it to github
+```
