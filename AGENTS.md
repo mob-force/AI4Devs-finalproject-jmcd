@@ -31,3 +31,4 @@ No application code yet: `readme.md`, `prompts.md`, `prompts/`, `docs/` and agen
 - Reviewing product documentation with the adversarial reviewer agent: `docs/agents/product-adversarial-reviewer.md`
 - Architecture principles, cited by ID (`P-01`) in designs and reviews: `docs/architecture/principles/`
 - Drafting ADRs and technical designs with the AAF author agent: `docs/agents/aaf-author.md`
+- The AAF reviewer panel: `docs/agents/aaf-reviewers.md`
