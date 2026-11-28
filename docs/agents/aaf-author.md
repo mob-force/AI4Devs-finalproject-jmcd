@@ -78,4 +78,4 @@ After changing the instructions or the model, have it draft one document on a sc
 
 | Date | Sample | Result |
 |---|---|---|
-| | | No sample run recorded yet |
+| 2026-11-28 | An ADR on reporting Apex errors, run headless on the four AAF branches combined | Passed the four checks. No Salesforce page could be fetched, so platform facts were labelled assumptions. A first run on `main` stopped without writing, as instructed. The hook was not verified, as the folder was not trusted |
