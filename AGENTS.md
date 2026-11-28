@@ -29,4 +29,7 @@ No application code yet: `readme.md`, `prompts.md`, `prompts/`, `docs/`, agent d
 - Writing an ADR (format, numbering, index): `docs/adr/README.md`
 - Writing product documentation from a Jira task with the Product Owner agent: `docs/agents/product-owner.md`
 - Reviewing product documentation with the adversarial reviewer agent: `docs/agents/product-adversarial-reviewer.md`
+- Architecture principles, cited by ID (`P-01`) in designs and reviews: `docs/architecture/principles/`
+- Drafting ADRs and technical designs with the AAF author agent: `docs/agents/aaf-author.md`
+- The AAF reviewer panel: `docs/agents/aaf-reviewers.md`
 - Running an architecture review with `/forum-review`: `docs/agents/aaf-forum.md`
