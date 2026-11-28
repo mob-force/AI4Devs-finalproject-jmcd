@@ -72,4 +72,4 @@ What was decided.
 | [0006](0006-adrs-for-architecture-and-process.md) | ADRs cover only architectural and project process decisions | Adopted |
 | [0007](0007-apex-layering.md) | Layer Apex with the Apex Enterprise Patterns, without the fflib library | Proposed |
 | [0008](0008-trigger-framework.md) | A minimal in-house trigger framework | Proposed |
-| [0009](0009-aaf-author-agent.md) | Model and form of the AAF author agent | Proposed |
+| [0009](0009-aaf-author-agent.md) | Model and form of the AAF author agent | Adopted |

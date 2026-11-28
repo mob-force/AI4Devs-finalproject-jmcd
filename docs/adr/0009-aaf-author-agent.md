@@ -1,6 +1,6 @@
 # ADR 0009: Model and form of the AAF author agent
 
-- **Status:** Proposed
+- **Status:** Adopted
 - **Date:** 2026-11-28
 - **Ticket:** KYP-21
 
