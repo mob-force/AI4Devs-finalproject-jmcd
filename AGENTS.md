@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## State
 
-No application code yet: `readme.md`, `prompts.md`, `prompts/`, `docs/` and agent definitions in `.claude/agents/`, plus Node tooling: commit checks (Husky, commitlint) and the agent scripts in `.claude/scripts/`, one folder per feature (test them with `npm test`). No application stack, build or lint commands are defined yet. Add them here once code lands, and don't invent them before then.
+No application code yet: `readme.md`, `prompts.md`, `prompts/`, `docs/`, agent definitions in `.claude/agents/` and skills in `.claude/skills/`, plus Node tooling: commit checks (Husky, commitlint) and the agent scripts in `.claude/scripts/`, one folder per feature (test them with `npm test`). No application stack, build or lint commands are defined yet. Add them here once code lands, and don't invent them before then.
 
 ## Rules
 
@@ -32,3 +32,4 @@ No application code yet: `readme.md`, `prompts.md`, `prompts/`, `docs/` and agen
 - Architecture principles, cited by ID (`P-01`) in designs and reviews: `docs/architecture/principles/`
 - Drafting ADRs and technical designs with the AAF author agent: `docs/agents/aaf-author.md`
 - The AAF reviewer panel: `docs/agents/aaf-reviewers.md`
+- Running an architecture review with `/forum-review`: `docs/agents/aaf-forum.md`
