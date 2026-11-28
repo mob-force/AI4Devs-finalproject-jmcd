@@ -13,8 +13,8 @@ How to cite and change principles is in [patterns.md](patterns.md#using-the-prin
 | P-23 | An Apex class or trigger name follows the [table below](#apex-names). | The layer, and so the rules that apply, is visible from the name. |
 | P-24 | Classes are `UpperCamelCase`, methods `lowerCamelCase` starting with a verb, variables meaningful `lowerCamelCase`, and constants `UPPER_SNAKE_CASE`; Selector methods start with `selectBy` or `selectAll`. | Follows the Java style Salesforce recommends for Apex [S1]. |
 | P-25 | A Lightning web component name is `lowerCamelCase`, letters and digits only, and says what it shows. | The platform requires a lowercase first letter and bans hyphens [S2]; leaving out underscores is a project choice. |
-| P-26 | No record IDs, URLs or environment values in code (configuration goes in custom metadata), and no user-facing text in code (it goes in custom labels). | Values differ between orgs, and text can change or be translated without code. |
-| P-27 | A test class creates its own data and asserts behaviour, including 200 records for bulk paths and a user without access for secured paths. | Coverage alone does not show that code works. |
+| P-26 | No record IDs, URLs or environment values in code (configuration goes in custom metadata, except the trigger switch of P-48), and no user-facing text in code (it goes in custom labels). | Values differ between orgs, and text can change or be translated without code. |
+| P-27 | A test class builds its own data (in memory when P-50 needs no database) and asserts behaviour, including 200 records for bulk paths and a user without access for secured paths. | Coverage alone does not show that code works. |
 
 ## Apex names
 
@@ -25,6 +25,7 @@ How to cite and change principles is in [patterns.md](patterns.md#using-the-prin
 | Service | `<Objects>Service`, or `<UseCase>Service` when it spans objects | `PackageVersionsService` |
 | Domain | `<Objects>` | `PackageVersions` |
 | Selector | `<Objects>Selector` | `PackageVersionsSelector` |
+| Unit of work | `UnitOfWork`, one shared class | `UnitOfWork` |
 | Client of an external API | `<Api>Client` | `LicensingClient` |
 | Trigger | `<Object>Trigger` | `PackageVersionTrigger` |
 | Trigger handler | `<Objects>TriggerHandler` | `PackageVersionsTriggerHandler` |
@@ -33,6 +34,8 @@ How to cite and change principles is in [patterns.md](patterns.md#using-the-prin
 | Asynchronous job | `<UseCase>Queueable`, `<UseCase>Batch` or `<UseCase>Scheduler` | `PackageRefreshQueueable` |
 | Custom exception | `<Name>Exception` (the suffix is required by the platform [S3]) | `PackageRefreshException` |
 | Test | `<ClassName>Test` | `PackageVersionsServiceTest` |
+
+The trigger switch of P-48 is the custom setting `Trigger_Setting__c`, with one checkbox `Is_<Object>_Trigger_Disabled__c` per handler.
 
 ## Sources
 
