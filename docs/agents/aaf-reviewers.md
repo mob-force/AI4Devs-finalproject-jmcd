@@ -79,6 +79,6 @@ Each reviewer has room for 5 findings, so further reasonable findings in its are
 
 | Date | Sample | Result |
 |---|---|---|
-| | `sample-tdd.md` | Not run yet |
+| 2026-11-28 | `sample-tdd.md`, through `/forum-review` on the four AAF branches combined, in a folder without this page | Every planted flaw reported, at most 5 findings each, only `claude-opus-5-5`, and only the review record written. `aaf-security` once gave three principle IDs instead of one. Some problems were reported by three reviewers, from different angles. Cited IDs exist; whether each supports its finding was judged by the chair, not by hand |
 
 `npm test` checks that each definition keeps its tools and model and refers to the contract without copying it. It does not check what a reviewer answers.
