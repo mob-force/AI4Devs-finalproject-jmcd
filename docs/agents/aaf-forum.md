@@ -89,9 +89,13 @@ So read the record before you commit it. A model set for the call or `CLAUDE_COD
 
 `npm test` covers the hook and the chair's tool list, model and hook entry. It does not run the forum.
 
-The forum has not been run yet: it needs the author and reviewers. To check it, run `/forum-review` on one ADR or TDD and confirm that:
+To check the forum, run `/forum-review` on one ADR or TDD and confirm that:
 
 - the five reviewers run at the same time, and the chair starts only after all have answered,
 - the record is the only file that changed (`git status`),
 - every finding of the five answers is in the findings table, and the verdict follows from the rulings,
 - the record names `claude-opus-5-5` as chair model.
+
+| Date | Sample | Result |
+|---|---|---|
+| 2026-11-28 | `.claude/scripts/aaf-reviewers/sample-tdd.md`, headless on the four AAF branches combined | Passed the four checks: 24 findings merged into 17 issues, verdict `Rejected`. The hook was not verified, as the folder was not trusted |
