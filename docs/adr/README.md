@@ -73,4 +73,4 @@ What was decided.
 | [0007](0007-apex-layering.md) | Layer Apex with the Apex Enterprise Patterns, without the fflib library | Proposed |
 | [0008](0008-trigger-framework.md) | A minimal in-house trigger framework | Proposed |
 | [0009](0009-aaf-author-agent.md) | Model and form of the AAF author agent | Adopted |
-| [0010](0010-aaf-reviewer-panel.md) | Model and form of the AAF reviewer panel | Proposed |
+| [0010](0010-aaf-reviewer-panel.md) | Model and form of the AAF reviewer panel | Adopted |

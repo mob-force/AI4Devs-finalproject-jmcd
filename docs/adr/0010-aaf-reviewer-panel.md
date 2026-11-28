@@ -1,6 +1,6 @@
 # ADR 0010: Model and form of the AAF reviewer panel
 
-- **Status:** Proposed
+- **Status:** Adopted
 - **Date:** 2026-11-28
 - **Ticket:** KYP-22
 
