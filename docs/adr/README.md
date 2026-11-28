@@ -74,4 +74,4 @@ What was decided.
 | [0008](0008-trigger-framework.md) | A minimal in-house trigger framework | Proposed |
 | [0009](0009-aaf-author-agent.md) | Model and form of the AAF author agent | Adopted |
 | [0010](0010-aaf-reviewer-panel.md) | Model and form of the AAF reviewer panel | Adopted |
-| [0011](0011-forum-review-command-and-chair.md) | The architecture review runs as a command with a separate chair | Proposed |
+| [0011](0011-forum-review-command-and-chair.md) | The architecture review runs as a command with a separate chair | Adopted |

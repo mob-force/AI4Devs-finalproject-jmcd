@@ -1,6 +1,6 @@
 # ADR 0011: The architecture review runs as a command with a separate chair
 
-- **Status:** Proposed
+- **Status:** Adopted
 - **Date:** 2026-11-28
 - **Ticket:** KYP-23
 
